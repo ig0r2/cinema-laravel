@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="{{ app.getLocale }}">
+    <head>
+        <meta charset="UTF-8" />
+        <title>
+            {% block title %}
+
+            {% endblock %}
+        </title>
+        <base href="../" />
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0 user-scalable=no" />
+        {{ view_blade('vite') }}
+    </head>
+    <body>
+        <div id="app">
+            {% include '@components/navbar/navbar.twig' %}
+            <main>
+                {% block content %}
+
+                {% endblock %}
+            </main>
+            {% include '@components/footer/footer.twig' %}
+        </div>
+        <script src="{{ asset('js/app.js') }}"></script>
+    </body>
+</html>
