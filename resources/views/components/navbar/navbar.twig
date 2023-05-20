@@ -2,4 +2,11 @@
     <a href="/">Home</a>
     <a href="/about">About</a>
     <a href="/contact">Contact</a>
+
+    {% if auth_check() %}
+        <a href="/home" class="ms-auto">Profil</a>
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="/login" class="ms-auto">Login</a>
+    {% endif %}
 </nav>
