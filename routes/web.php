@@ -42,7 +42,19 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     });
 });
 
-
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
-    Route::get('/movies', 'MovieController@index')->name('movies.index');
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::group(['prefix' => 'genres'], function () {
+            /**
+             * Genre routes
+             */
+            Route::get('/', 'GenreController@index')->name('genres.index');
+            Route::get('/create', 'GenreController@create')->name('genres.create');
+            Route::post('/', 'GenreController@store')->name('genres.store');
+            // Route::get('/{genre}', 'GenreController@show')->name('genres.show');
+            Route::get('/{genre}/edit', 'GenreController@edit')->name('genres.edit');
+            Route::post('/{genre}', 'GenreController@update')->name('genres.update');
+            Route::get('/{genre}/delete', 'GenreController@destroy')->name('genres.destroy');
+        });
+    });
 });
