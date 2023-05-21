@@ -41,3 +41,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/home', 'HomeController@index')->name('home');
     });
 });
+
+
+Route::group(['namespace' => 'App\Http\Controllers'], function () {
+    Route::get('/movies', 'MovieController@index')->name('movies.index');
+});

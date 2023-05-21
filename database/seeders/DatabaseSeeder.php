@@ -3,7 +3,13 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Genre;
+use App\Models\Actor;
+use App\Models\Director;
+use App\Models\Movie;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,5 +24,106 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        Schema::disableForeignKeyConstraints();
+        Movie::truncate();
+        Genre::truncate();
+        Actor::truncate();
+        Director::truncate();
+        Schema::enableForeignKeyConstraints();
+        
+        Genre::create([
+            'name' => 'Action',
+        ]);
+        Genre::create([
+            'name' => 'Adventure',
+        ]);
+        Genre::create([
+            'name' => 'Sci-Fi',
+        ]);
+        Genre::create([
+            'name' => 'Comedy',
+        ]);
+        Genre::create([
+            'name' => 'Drama',
+        ]);
+        Genre::create([
+            'name' => 'Fantasy',
+        ]);
+        Genre::create([
+            'name' => 'Horror',
+        ]);
+        Genre::create([
+            'name' => 'Mystery',
+        ]);
+
+        Actor::create([
+            'name' => 'Test Actor',
+            'image_url' => 'https://via.placeholder.com/150',
+            'biography' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        ]);
+        Actor::create([
+            'name' => 'Test Actor 2',
+            'image_url' => 'https://via.placeholder.com/150',
+            'biography' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        ]);
+        Actor::create([
+            'name' => 'Test Actor 3',
+            'image_url' => 'https://via.placeholder.com/150',
+            'biography' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        ]);
+
+        Director::create([
+            'name' => 'Test Director',
+            'image_url' => 'https://via.placeholder.com/150',
+            'biography' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        ]);
+        Director::create([
+            'name' => 'Test Director 2',
+            'image_url' => 'https://via.placeholder.com/150',
+            'biography' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        ]);
+        Director::create([
+            'name' => 'Test Director 3',
+            'image_url' => 'https://via.placeholder.com/150',
+            'biography' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        ]);
+
+        Movie::create([
+            'title' => 'Star Wars I',
+            'image_url' => 'https://via.placeholder.com/150',
+            'runtime' => 120,
+            'release_date' => '2021-05-20',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        ]);
+        Movie::create([
+            'title' => 'Star Wars II',
+            'image_url' => 'https://via.placeholder.com/150',
+            'runtime' => 120,
+            'release_date' => '2021-05-20',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        ]);
+        Movie::create([
+            'title' => 'Star Wars III',
+            'image_url' => 'https://via.placeholder.com/150',
+            'runtime' => 120,
+            'release_date' => '2021-05-20',
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        ]);
+
+        $movie = Movie::find(1);
+        $movie->genres()->attach([1, 3, 5]);
+        $movie->actors()->attach([1, 2, 3]);
+        $movie->directors()->attach([1, 2, 3]);
+
+        $movie = Movie::find(2);
+        $movie->genres()->attach([1, 2, 3]);
+        $movie->actors()->attach([1, 2, 3]);
+        $movie->directors()->attach([1, 2, 3]);
+
+        $movie = Movie::find(3);
+        $movie->genres()->attach([1, 3, 5]);
+        $movie->actors()->attach([1, 2, 3]);
+        $movie->directors()->attach([1, 2, 3]);
     }
 }
