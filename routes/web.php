@@ -68,5 +68,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('/{actor}', 'ActorController@update')->name('actors.update');
             Route::get('/{actor}/delete', 'ActorController@destroy')->name('actors.destroy');
         });
+        Route::group(['prefix' => 'directors'], function () {
+            /**
+             * Director routes
+             */
+            Route::get('/', 'DirectorController@index')->name('directors.index');
+            Route::get('/create', 'DirectorController@create')->name('directors.create');
+            Route::post('/', 'DirectorController@store')->name('directors.store');
+            // Route::get('/{director}', 'DirectorController@show')->name('directors.show');
+            Route::get('/{director}/edit', 'DirectorController@edit')->name('directors.edit');
+            Route::post('/{director}', 'DirectorController@update')->name('directors.update');
+            Route::get('/{director}/delete', 'DirectorController@destroy')->name('directors.destroy');
+        });
     });
 });

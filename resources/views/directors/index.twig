@@ -1,0 +1,31 @@
+{% extends '@components/layout.twig' %}
+{% block content %}
+    <div class="container mx-auto p-4">
+        <div class="my-2">
+            <h1 class="text-2xl font-bold text-center">
+                Režiseri
+            </h1>
+            <div class="flex mt-2">
+                <a href="{{ route('directors.create') }}"
+                    class="ms-auto px-2 p-1 rounded-md bg-blue-500 hover:bg-blue-700">
+                    Dodaj režisera
+                </a>
+            </div>
+        </div>
+        {% for director in directors %}
+            <div class="w-full flex items-center mt-2 p-2 gap-2 bg-slate-800 rounded-md">
+                <p>
+                    {{ director.name }}
+                </p>
+                <a href="{{ route('directors.edit', director.id) }}"
+                    class="ms-auto px-2 p-1 rounded-md bg-blue-500 hover:bg-blue-700">
+                    Izmeni
+                </a>
+                <a href="{{ route('directors.destroy', director.id) }}"
+                    class="px-2 p-1 rounded-md bg-red-500 hover:bg-red-800">
+                    Obriši
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
