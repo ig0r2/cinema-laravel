@@ -44,6 +44,18 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::group(['prefix' => 'dashboard'], function () {
+        Route::group(['prefix' => 'movies'], function () {
+            /**
+             * Movie routes
+             */
+            Route::get('/', 'MovieController@index')->name('movies.index');
+            Route::get('/create', 'MovieController@create')->name('movies.create');
+            Route::post('/', 'MovieController@store')->name('movies.store');
+            // Route::get('/{movie}', 'MovieController@show')->name('movies.show');
+            Route::get('/{movie}/edit', 'MovieController@edit')->name('movies.edit');
+            Route::post('/{movie}', 'MovieController@update')->name('movies.update');
+            Route::get('/{movie}/delete', 'MovieController@destroy')->name('movies.destroy');
+        });
         Route::group(['prefix' => 'genres'], function () {
             /**
              * Genre routes
