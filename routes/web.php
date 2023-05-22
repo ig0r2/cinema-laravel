@@ -56,5 +56,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('/{genre}', 'GenreController@update')->name('genres.update');
             Route::get('/{genre}/delete', 'GenreController@destroy')->name('genres.destroy');
         });
+        Route::group(['prefix' => 'actors'], function () {
+            /**
+             * Actor routes
+             */
+            Route::get('/', 'ActorController@index')->name('actors.index');
+            Route::get('/create', 'ActorController@create')->name('actors.create');
+            Route::post('/', 'ActorController@store')->name('actors.store');
+            // Route::get('/{actor}', 'ActorController@show')->name('actors.show');
+            Route::get('/{actor}/edit', 'ActorController@edit')->name('actors.edit');
+            Route::post('/{actor}', 'ActorController@update')->name('actors.update');
+            Route::get('/{actor}/delete', 'ActorController@destroy')->name('actors.destroy');
+        });
     });
 });
