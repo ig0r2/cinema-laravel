@@ -1,0 +1,31 @@
+{% extends '@components/layout.twig' %}
+{% block content %}
+    <div class="container mx-auto p-4">
+        <div class="my-2">
+            <h1 class="text-2xl font-bold text-center">
+                Sale
+            </h1>
+            <div class="flex mt-2">
+                <a href="{{ route('halls.create') }}"
+                    class="ms-auto px-2 p-1 rounded-md bg-blue-500 hover:bg-blue-700">
+                    Dodaj salu
+                </a>
+            </div>
+        </div>
+        {% for hall in halls %}
+            <div class="w-full flex items-center mt-2 p-2 gap-2 bg-slate-800 rounded-md">
+                <p>
+                    {{ hall.name }}
+                </p>
+                <a href="{{ route('halls.edit', hall.id) }}"
+                    class="ms-auto px-2 p-1 rounded-md bg-blue-500 hover:bg-blue-700">
+                    Izmeni
+                </a>
+                <a href="{{ route('halls.destroy', hall.id) }}"
+                    class="px-2 p-1 rounded-md bg-red-500 hover:bg-red-800">
+                    Obriši
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

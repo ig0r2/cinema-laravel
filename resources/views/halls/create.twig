@@ -1,0 +1,55 @@
+{% extends '@components/layout.twig' %}
+{% block content %}
+    <div class="w-full sm:max-w-md mx-auto p-4 rounded-md bg-slate-800">
+        <form action="{{ route('halls.store') }}"
+            method="POST"
+            enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <h2 class="text-lg text-center">
+                Dodaj salu
+            </h2>
+            <div>
+                <a href="{{ route('halls.index') }}"
+                    class="text-gray-400 hover:text-gray-300">
+                    Nazad
+                </a>
+            </div>
+            {# Name #}
+            <div class="mt-4">
+                <label for="name">Naziv</label>
+                <input type="text"
+                    name="name"
+                    id="name"
+                    class="bg-gray-900 text-white rounded-md mt-1 w-full p-2"
+                    value="{{ old('name') }}"
+                    required />
+                {% if errors.has('name') %}
+                    <div class="text-red-500 text-sm mt-1">
+                        {{ errors.first('name') }}
+                    </div>
+                {% endif %}
+            </div>
+            {# Capacity #}
+            <div class="mt-4">
+                <label for="capacity">Kapacitet</label>
+                <input type="number"
+                    name="capacity"
+                    id="capacity"
+                    class="bg-gray-900 text-white rounded-md mt-1 w-full p-2"
+                    value="{{ old('capacity') }}"
+                    required />
+                {% if errors.has('capacity') %}
+                    <div class="text-red-500 text-sm mt-1">
+                        {{ errors.first('capacity') }}
+                    </div>
+                {% endif %}
+            </div>
+            {# Submit #}
+            <div class="flex mt-4">
+                <input type="submit"
+                    value="Dodaj"
+                    class="ms-auto bg-white text-black rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer" />
+            </div>
+        </form>
+    </div>
+{% endblock %}

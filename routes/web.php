@@ -92,5 +92,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('/{director}', 'DirectorController@update')->name('directors.update');
             Route::get('/{director}/delete', 'DirectorController@destroy')->name('directors.destroy');
         });
+        Route::group(['prefix' => 'halls', 'as' => 'halls.'], function () {
+            /**
+             * Hall routes
+             */
+            Route::get('/', 'HallController@index')->name('index');
+            Route::get('/create', 'HallController@create')->name('create');
+            Route::post('/', 'HallController@store')->name('store');
+            // Route::get('/{hall}', 'HallController@show')->name('show');
+            Route::get('/{hall}/edit', 'HallController@edit')->name('edit');
+            Route::post('/{hall}', 'HallController@update')->name('update');
+            Route::get('/{hall}/delete', 'HallController@destroy')->name('destroy');
+        });
     });
 });
