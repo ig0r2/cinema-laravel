@@ -49,4 +49,25 @@ class Movie extends Model
     {
         return $this->belongsToMany(Director::class, 'movie_director');
     }
+
+    /**
+     * Get the screenings for the movie.
+     */
+    public function screenings()
+    {
+        return $this->hasMany(Screening::class);
+    }
+
+    /**
+     * Get screenings grouped by date.
+     */
+    public function screeningsByDate()
+    {
+        return $this->screenings()
+            ->get()
+            ->groupBy(function ($item) {
+                return $item->time->format('Y-m-d');
+            })
+            ->sortKeys();
+    }
 }

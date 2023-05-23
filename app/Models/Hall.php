@@ -13,4 +13,12 @@ class Hall extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = ['name', 'capacity'];
+
+    /**
+     * Get the screenings for the hall.
+     */
+    public function screenings()
+    {
+        return $this->hasMany(Screening::class);
+    }
 }

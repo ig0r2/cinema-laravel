@@ -1,0 +1,114 @@
+{% extends '@components/layout.twig' %}
+{% block content %}
+    <div class="w-full sm:max-w-md mx-auto p-4 rounded-md bg-slate-800">
+        <form action="{{ route('screenings.store') }}" method="POST">
+            {{ csrf_field() }}
+            <h2 class="text-lg text-center">
+                Dodaj projekciju
+            </h2>
+            <div>
+                <a href="{{ route('screenings.index') }}"
+                    class="text-gray-400 hover:text-gray-300">
+                    Nazad
+                </a>
+            </div>
+            {# Movie #}
+            <div class="mt-4">
+                <label for="movie">Film</label>
+                <select name="movie"
+                    id="movie"
+                    class="bg-gray-900 text-white rounded-md mt-1 w-full p-2"
+                    required>
+                    <option value="">
+                        Izaberi film
+                    </option>
+                    {% for movie in movies %}
+                        <option value="{{ movie.id }}"
+                            {{ old('movie') == movie.id ? 'selected' : '' }}>
+                            {{ movie.title }}
+                        </option>
+                    {% endfor %}
+                </select>
+                {% if errors.has('movie') %}
+                    <div class="text-red-500 text-sm mt-1">
+                        {{ errors.first('movie') }}
+                    </div>
+                {% endif %}
+            </div>
+            {# Hall #}
+            <div class="mt-4">
+                <label for="hall">Sala</label>
+                <select name="hall"
+                    id="hall"
+                    class="bg-gray-900 text-white rounded-md mt-1 w-full p-2"
+                    required>
+                    <option value="">
+                        Izaberi salu
+                    </option>
+                    {% for hall in halls %}
+                        <option value="{{ hall.id }}"
+                            {{ old('hall') == hall.id ? 'selected' : '' }}>
+                            {{ hall.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                {% if errors.has('hall') %}
+                    <div class="text-red-500 text-sm mt-1">
+                        {{ errors.first('hall') }}
+                    </div>
+                {% endif %}
+            </div>
+            {# Date and Time #}
+            <div class="mt-4">
+                <label for="time">Datum i vreme</label>
+                <input type="datetime-local"
+                    name="time"
+                    id="time"
+                    class="bg-gray-900 text-white rounded-md mt-1 w-full p-2"
+                    value="{{ old('time') }}"
+                    required />
+                {% if errors.has('time') %}
+                    <div class="text-red-500 text-sm mt-1">
+                        {{ errors.first('time') }}
+                    </div>
+                {% endif %}
+            </div>
+            {# Price #}
+            <div class="mt-4">
+                <label for="price">Cena</label>
+                <input type="number"
+                    name="price"
+                    id="price"
+                    class="bg-gray-900 text-white rounded-md mt-1 w-full p-2"
+                    value="{{ old('price') }}"
+                    required />
+                {% if errors.has('price') %}
+                    <div class="text-red-500 text-sm mt-1">
+                        {{ errors.first('price') }}
+                    </div>
+                {% endif %}
+            </div>
+            {# Type #}
+            <div class="mt-4">
+                <label for="type">Tip</label>
+                <input type="text"
+                    name="type"
+                    id="type"
+                    class="bg-gray-900 text-white rounded-md mt-1 w-full p-2"
+                    value="{{ old('type') }}"
+                    required />
+                {% if errors.has('type') %}
+                    <div class="text-red-500 text-sm mt-1">
+                        {{ errors.first('type') }}
+                    </div>
+                {% endif %}
+            </div>
+            {# Submit #}
+            <div class="flex mt-4">
+                <input type="submit"
+                    value="Dodaj"
+                    class="ms-auto bg-white text-black rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer" />
+            </div>
+        </form>
+    </div>
+{% endblock %}
