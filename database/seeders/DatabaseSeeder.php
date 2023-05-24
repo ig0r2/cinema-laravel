@@ -59,34 +59,22 @@ class DatabaseSeeder extends Seeder
 
         Actor::create([
             'name' => 'Test Actor',
-            'image_url' => 'https://via.placeholder.com/150',
-            'biography' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         ]);
         Actor::create([
             'name' => 'Test Actor 2',
-            'image_url' => 'https://via.placeholder.com/150',
-            'biography' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         ]);
         Actor::create([
             'name' => 'Test Actor 3',
-            'image_url' => 'https://via.placeholder.com/150',
-            'biography' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         ]);
 
         Director::create([
             'name' => 'Test Director',
-            'image_url' => 'https://via.placeholder.com/150',
-            'biography' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         ]);
         Director::create([
             'name' => 'Test Director 2',
-            'image_url' => 'https://via.placeholder.com/150',
-            'biography' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         ]);
         Director::create([
             'name' => 'Test Director 3',
-            'image_url' => 'https://via.placeholder.com/150',
-            'biography' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         ]);
 
         Movie::create([

@@ -34,15 +34,10 @@ class ActorController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
         ]);
-
-        $imageName = \Str::replace(' ', '-', $request->input('name')) . '.' . $request->file('image')->extension();
-        $imagePath = $request->file('image')->storeAs('images/actors', $imageName, 'public');
 
         Actor::create([
             'name' => $request->input('name'),
-            'image_url' => $imagePath,
         ]);
 
         return redirect()->route('actors.index');
@@ -65,18 +60,11 @@ class ActorController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
         ]);
 
-        if ($request->hasFile('image')) {
-            $imageName = \Str::replace(' ', '-', $request->input('name')) . '.' . $request->file('image')->extension();
-            $imagePath = $request->file('image')->storeAs('images/actors', $imageName, 'public');
-
-            $actor->image_url = $imagePath;
-        }
-
-        $actor->name = $request->input('name');
-        $actor->save();
+        $actor->update([
+            'name' => $request->input('name'),
+        ]);
 
         return redirect()->route('actors.index');
     }

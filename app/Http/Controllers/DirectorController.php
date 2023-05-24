@@ -34,15 +34,10 @@ class DirectorController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
         ]);
-
-        $imageName = \Str::replace(' ', '-', $request->input('name')) . '.' . $request->file('image')->extension();
-        $imagePath = $request->file('image')->storeAs('images/directors', $imageName, 'public');
 
         Director::create([
             'name' => $request->input('name'),
-            'image_url' => $imagePath,
         ]);
 
         return redirect()->route('directors.index');
@@ -65,19 +60,10 @@ class DirectorController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
         ]);
-
-        if ($request->hasFile('image')) {
-            $imageName = \Str::replace(' ', '-', $request->input('name')) . '.' . $request->file('image')->extension();
-            $imagePath = $request->file('image')->storeAs('images/directors', $imageName, 'public');
-        } else {
-            $imagePath = $director->image_url;
-        }
 
         $director->update([
             'name' => $request->input('name'),
-            'image_url' => $imagePath,
         ]);
 
         return redirect()->route('directors.index');

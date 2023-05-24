@@ -15,7 +15,7 @@ class Director extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'image_url', 'biography'];
+    protected $fillable = ['name'];
 
     /**
      * Get the movies for the director.
