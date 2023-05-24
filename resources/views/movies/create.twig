@@ -89,22 +89,27 @@
                     </div>
                     {# Genres #}
                     <div class="mt-4">
-                        <label for="genres">Žanrovi</label>
-                        <select name="genres[]"
-                            id="genres"
-                            class="bg-gray-900 text-white rounded-md mt-1 w-full p-2"
-                            multiple>
+                        <p>Žanrovi</p>
+                        <div class="p-2 max-h-40 overflow-auto bg-gray-900 rounded-md w-full border border-gray-500">
                             {% for genre in genres %}
-                                <option value="{{ genre.id }}"
-                                    {{
-                                    genre.id in old('genres')
-                                        ? 'selected'
-                                        : ''
-                                    }}>
-                                    {{ genre.name }}
-                                </option>
+                                <div class="flex">
+                                    <label for="genre-{{ genre.id }}">
+                                        <input type="checkbox"
+                                            name="genres[]"
+                                            id="genre-{{ genre.id }}"
+                                            value="{{ genre.id }}"
+                                            {{
+                                            genre.id in old('genres')
+                                                ? 'checked'
+                                                : ''
+                                            }} />
+                                        <span class="ml-2">
+                                            {{ genre.name }}
+                                        </span>
+                                    </label>
+                                </div>
                             {% endfor %}
-                        </select>
+                        </div>
                         {% if errors.has('genres') %}
                             <div class="text-red-500 text-sm mt-1">
                                 {{ errors.first('genres') }}
@@ -113,22 +118,27 @@
                     </div>
                     {# Actors #}
                     <div class="mt-4">
-                        <label for="actors">Glumci</label>
-                        <select name="actors[]"
-                            id="actors"
-                            class="bg-gray-900 text-white rounded-md mt-1 w-full p-2"
-                            multiple>
+                        <p>Glumci</p>
+                        <div class="p-2 max-h-40 overflow-auto bg-gray-900 rounded-md w-full border border-gray-500">
                             {% for actor in actors %}
-                                <option value="{{ actor.id }}"
-                                    {{
-                                    actor.id in old('actors')
-                                        ? 'selected'
-                                        : ''
-                                    }}>
-                                    {{ actor.name }}
-                                </option>
+                                <div class="flex">
+                                    <label for="actor-{{ actor.id }}">
+                                        <input type="checkbox"
+                                            name="actors[]"
+                                            id="actor-{{ actor.id }}"
+                                            value="{{ actor.id }}"
+                                            {{
+                                            actor.id in old('actors')
+                                                ? 'checked'
+                                                : ''
+                                            }} />
+                                        <span class="ml-2">
+                                            {{ actor.name }}
+                                        </span>
+                                    </label>
+                                </div>
                             {% endfor %}
-                        </select>
+                        </div>
                         {% if errors.has('actors') %}
                             <div class="text-red-500 text-sm mt-1">
                                 {{ errors.first('actors') }}
@@ -137,22 +147,27 @@
                     </div>
                     {# Directors #}
                     <div class="mt-4">
-                        <label for="directors">Režiseri</label>
-                        <select name="directors[]"
-                            id="directors"
-                            class="bg-gray-900 text-white rounded-md mt-1 w-full p-2"
-                            multiple>
+                        <p>Režiseri</p>
+                        <div class="p-2 max-h-40 overflow-auto bg-gray-900 rounded-md w-full border border-gray-500">
                             {% for director in directors %}
-                                <option value="{{ director.id }}"
-                                    {{
-                                    director.id in old('directors')
-                                        ? 'selected'
-                                        : ''
-                                    }}>
-                                    {{ director.name }}
-                                </option>
+                                <div class="flex">
+                                    <label for="director-{{ director.id }}">
+                                        <input type="checkbox"
+                                            name="directors[]"
+                                            id="director-{{ director.id }}"
+                                            value="{{ director.id }}"
+                                            {{
+                                            director.id in old('directors')
+                                                ? 'checked'
+                                                : ''
+                                            }} />
+                                        <span class="ml-2">
+                                            {{ director.name }}
+                                        </span>
+                                    </label>
+                                </div>
                             {% endfor %}
-                        </select>
+                        </div>
                         {% if errors.has('directors') %}
                             <div class="text-red-500 text-sm mt-1">
                                 {{ errors.first('directors') }}
