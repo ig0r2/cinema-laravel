@@ -116,5 +116,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             // Route::post('/{screening}', 'ScreeningController@update')->name('update');
             Route::get('/{screening}/delete', 'ScreeningController@destroy')->name('destroy');
         });
+        Route::group(['prefix' => 'tickets', 'as' => 'tickets.'], function () {
+            /**
+             * Ticket routes
+             */
+            Route::get('/', 'TicketController@index')->name('index');
+            Route::get('/create/{screening}', 'TicketController@create')->name('create');
+            Route::post('/{screening}', 'TicketController@store')->name('store');
+            Route::get('/{ticket}', 'TicketController@show')->name('show');
+            // Route::get('/{ticket}/edit', 'TicketController@edit')->name('edit');
+            // Route::post('/{ticket}', 'TicketController@update')->name('update');
+            Route::get('/{ticket}/delete', 'TicketController@destroy')->name('destroy');
+        });
     });
 });

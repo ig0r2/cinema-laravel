@@ -46,16 +46,27 @@ class ScreeningController extends Controller
             'price' => 'required|numeric',
             'type' => 'required|string',
         ]);
-        
+
         Screening::create([
             'movie_id' => $request->input('movie'),
             'hall_id' => $request->input('hall'),
             'time' => $request->input('time'),
             'price' => $request->input('price'),
             'type' => $request->input('type'),
+            'seats_available' => Hall::find($request->input('hall'))->capacity,
         ]);
 
         return redirect()->route('screenings.index');
+    }
+
+    /**
+     * Show the specified screening.
+     */
+    public function show(Screening $screening): View
+    {
+        return view('screenings.show', [
+            'screening' => $screening,
+        ]);
     }
 
     /**

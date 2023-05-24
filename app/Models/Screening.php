@@ -14,7 +14,7 @@ class Screening extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['movie_id', 'hall_id', 'time', 'price', 'type'];
+    protected $fillable = ['movie_id', 'hall_id', 'time', 'price', 'type', 'seats_available'];
 
     /**
      * The attributes that should be cast.
@@ -39,5 +39,13 @@ class Screening extends Model
     public function hall()
     {
         return $this->belongsTo(Hall::class);
+    }
+
+    /**
+     * Get the tickets for the screening.
+     */
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
     }
 }

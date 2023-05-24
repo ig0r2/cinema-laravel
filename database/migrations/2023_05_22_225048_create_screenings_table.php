@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->dateTime('time');
             $table->float('price');
             $table->string('type');
+            $table->integer('seats_available');
             $table->timestamps();
         });
     }
