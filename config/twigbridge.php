@@ -108,6 +108,7 @@ return [
         */
         'enabled' => [
             'App\Twig\Functions',
+            'App\Twig\Filters',
             'TwigBridge\Extension\Laravel\Event',
             'TwigBridge\Extension\Loader\Facades',
             'TwigBridge\Extension\Loader\Filters',
