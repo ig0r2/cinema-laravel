@@ -54,7 +54,7 @@ class MovieController extends Controller
         ]);
 
         $imageName = \Str::replace(' ', '-', $request->input('title')) . '.' . $request->file('image')->extension();
-        $imagePath = $request->file('image')->storeAs('images/movies', $imageName, 'public');
+        $imagePath = $request->file('image')->storeAs('movies', $imageName, 'public_images');
 
         $movie = Movie::create([
             'title' => $request->input('title'),
@@ -118,7 +118,7 @@ class MovieController extends Controller
 
         if ($request->hasFile('image')) {
             $imageName = \Str::replace(' ', '-', $request->input('title')) . '.' . $request->file('image')->extension();
-            $imagePath = $request->file('image')->storeAs('images/movies', $imageName, 'public');
+            $imagePath = $request->file('image')->storeAs('movies', $imageName, 'public_images');
 
             $movie->update([
                 'image_url' => $imagePath,
