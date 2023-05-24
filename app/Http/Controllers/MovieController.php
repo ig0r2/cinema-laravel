@@ -83,7 +83,6 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie): View
     {
-        // ddd($movie->genres->pluck('id')->toArray());
         return view('movies.edit', [
             'movie' => $movie,
             'genres' => Genre::all(),
