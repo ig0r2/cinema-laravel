@@ -18,10 +18,7 @@ class MovieController extends Controller
     public function index(): View
     {
         return view('movies.index', [
-            'movies' => Movie::with('genres')
-                ->with('actors')
-                ->with('directors')
-                ->get(),
+            'movies' => Movie::all(),
         ]);
     }
 
@@ -74,10 +71,10 @@ class MovieController extends Controller
     /**
      * Show the specified movie.
      */
-    public function show(Movie $movie): View
+    public function show(int $movie_id): View
     {
         return view('movies.show', [
-            'movie' => $movie,
+            'movie' => Movie::with('genres', 'actors', 'directors')->findOrFail($movie_id),
         ]);
     }
 

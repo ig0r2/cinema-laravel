@@ -64,6 +64,7 @@ class Movie extends Model
     public function screeningsByDate()
     {
         return $this->screenings()
+            ->with('hall')
             ->get()
             ->groupBy(function ($item) {
                 return $item->time->format('Y-m-d');

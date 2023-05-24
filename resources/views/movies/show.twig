@@ -93,46 +93,54 @@
                 Projekcije
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
-                {% if (movie.screenings|length) == 0 %}
+                {% set screeningsByDate = movie.screeningsByDate() %}
+                {% if (screeningsByDate|length) == 0 %}
                     <p class="text-gray-400 text-center mt-4">
                         Trenutno nema projekcija za ovaj film.
                     </p>
+                {% else %}
+                    {% for date, screenings in screeningsByDate %}
+                        <div class="w-full flex bg-gray-900 rounded-md p-4 gap-4">
+                            <div class="flex flex-col justify-center w-36">
+                                <p class="">
+                                    {{ date|date('d.m.') }}
+                                </p>
+                                <p class="text-gray-400">
+                                    {{
+                                        date
+                                            |date('w')
+                                            |day_name
+                                            |upper
+                                            |slice(0, 3)
+                                    }}
+                                </p>
+                            </div>
+                            <div class="flex gap-6">
+                                {% for screening in screenings %}
+                                    <a href="{{
+                                        route(
+                                            'tickets.create',
+                                            screening.id
+                                        )
+                                        }}"
+                                        class="bg-gray-800 rounded-md p-2 hover:bg-blue-800">
+                                        <p class="text-center">
+                                            {{ screening.time|date('H:i') }}
+                                        </p>
+                                        <p class="text-center text-gray-400">
+                                            {{ screening.hall.name }} ({{
+                                                screening.type
+                                            }})
+                                        </p>
+                                        <p class="text-center text-gray-400">
+                                            {{ screening.price }} RSD
+                                        </p>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
                 {% endif %}
-                {% for date, screenings in movie.screeningsByDate() %}
-                    <div class="w-full flex bg-gray-900 rounded-md p-4 gap-4">
-                        <div class="flex flex-col justify-center w-36">
-                            <p class="">
-                                {{ date|date('d.m.') }}
-                            </p>
-                            <p class="text-gray-400">
-                                {{ date|date('w')|day_name|upper|slice(0, 3) }}
-                            </p>
-                        </div>
-                        <div class="flex gap-6">
-                            {% for screening in screenings %}
-                                <a href="{{
-                                    route(
-                                        'tickets.create',
-                                        screening.id
-                                    )
-                                    }}"
-                                    class="bg-gray-800 rounded-md p-2 hover:bg-blue-800">
-                                    <p class="text-center">
-                                        {{ screening.time|date('H:i') }}
-                                    </p>
-                                    <p class="text-center text-gray-400">
-                                        {{ screening.hall.name }} ({{
-                                            screening.type
-                                        }})
-                                    </p>
-                                    <p class="text-center text-gray-400">
-                                        {{ screening.price }} RSD
-                                    </p>
-                                </a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% endfor %}
             </div>
         </div>
     </div>

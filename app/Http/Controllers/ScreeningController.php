@@ -17,9 +17,7 @@ class ScreeningController extends Controller
     public function index(): View
     {
         return view('screenings.index', [
-            'screenings' => Screening::with('movie')
-                ->with('hall')
-                ->get(),
+            'screenings' => Screening::with('movie', 'hall')->get(),
         ]);
     }
 
@@ -62,10 +60,10 @@ class ScreeningController extends Controller
     /**
      * Show the specified screening.
      */
-    public function show(Screening $screening): View
+    public function show(int $screening_id): View
     {
         return view('screenings.show', [
-            'screening' => $screening,
+            'screening' => Screening::with('movie', 'hall', 'tickets.user')->findOrFail($screening_id),
         ]);
     }
 
