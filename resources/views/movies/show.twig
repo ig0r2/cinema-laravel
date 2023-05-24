@@ -11,7 +11,7 @@
             {# Image #}
             <div class="h-full">
                 <label for="image" class="cursor-pointer">
-                    <img src="{{ asset('storage/' ~ movie.image_url) }}"
+                    <img src="{{ asset('/images/' ~ movie.image_url) }}"
                         alt="Movie image"
                         class="w-72 h-96 object-cover rounded-md mt-4" />
                 </label>
@@ -112,7 +112,7 @@
                             {% for screening in screenings %}
                                 <a href="{{
                                     route(
-                                        'screenings.create',
+                                        'screenings.show',
                                         screening.id
                                     )
                                     }}"
