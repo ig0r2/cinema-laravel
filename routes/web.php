@@ -51,7 +51,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/', 'MovieController@index')->name('movies.index');
             Route::get('/create', 'MovieController@create')->name('movies.create');
             Route::post('/', 'MovieController@store')->name('movies.store');
-            // Route::get('/{movie}', 'MovieController@show')->name('movies.show');
+            Route::get('/{movie}', 'MovieController@show')->name('movies.show');
             Route::get('/{movie}/edit', 'MovieController@edit')->name('movies.edit');
             Route::post('/{movie}', 'MovieController@update')->name('movies.update');
             Route::get('/{movie}/delete', 'MovieController@destroy')->name('movies.destroy');

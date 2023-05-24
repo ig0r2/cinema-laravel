@@ -17,8 +17,12 @@
                 <p>
                     {{ movie.title }} ({{ movie.release_date.year }})
                 </p>
+                <a href="{{ route('movies.show', movie.id) }}"
+                    class="ms-auto px-2 p-1 rounded-md bg-green-500 hover:bg-green-700">
+                    Pogledaj
+                </a>
                 <a href="{{ route('movies.edit', movie.id) }}"
-                    class="ms-auto px-2 p-1 rounded-md bg-blue-500 hover:bg-blue-700">
+                    class="px-2 p-1 rounded-md bg-blue-500 hover:bg-blue-700">
                     Izmeni
                 </a>
                 <a href="{{ route('movies.destroy', movie.id) }}"

@@ -72,6 +72,16 @@ class MovieController extends Controller
     }
 
     /**
+     * Show the specified movie.
+     */
+    public function show(Movie $movie): View
+    {
+        return view('movies.show', [
+            'movie' => $movie,
+        ]);
+    }
+
+    /**
      * Show the form for editing the specified movie.
      */
     public function edit(Movie $movie): View
