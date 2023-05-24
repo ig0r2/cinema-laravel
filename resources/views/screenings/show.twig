@@ -1,0 +1,74 @@
+{% extends '@components/layout.twig' %}
+{% block content %}
+    <div class="w-full sm:max-w-md mx-auto p-4 rounded-md bg-slate-800">
+        <h2 class="text-lg text-center">
+            Projekcija
+        </h2>
+        <div>
+            <a href="{{ route('screenings.index') }}"
+                class="text-gray-400 hover:text-gray-300">
+                Nazad
+            </a>
+        </div>
+        <div class="mt-4 flex flex-col gap-2">
+            <p>
+                <span class="text-gray-400">Film:</span>
+                {{ screening.movie.title }} ({{
+                    screening.movie.release_date.year
+                }})
+            </p>
+            <p>
+                <span class="text-gray-400">Tip projekcije:</span>
+                {{ screening.type }}
+            </p>
+            <p>
+                <span class="text-gray-400">Sala:</span>
+                {{ screening.hall.name }}
+            </p>
+            <p>
+                <span class="text-gray-400">Datum:</span>
+                {{ screening.date|date('d.m.Y.') }}
+            </p>
+            <p>
+                <span class="text-gray-400">Vreme:</span>
+                {{ screening.date|date('H:i') }}
+            </p>
+            <p>
+                <span class="text-gray-400">Cena:</span>
+                {{ screening.price }} RSD
+            </p>
+            <div class="mt-4 flex flex-col gap-2">
+                <h3 class="text-lg">
+                    Kupljene karte
+                </h3>
+                <p>
+                    <span class="text-gray-400">Ukupno:</span>
+                    {{ screening.tickets|length }} / {{
+                        screening.hall.capacity
+                    }}
+                </p>
+                {% for ticket in screening.tickets %}
+                    <a href="{{ route('tickets.show', ticket.id) }}"
+                        class="flex flex-col gap-2 bg-gray-900 p-2 rounded-md hover:bg-blue-900">
+                        <p>
+                            <span class="text-gray-400">Kupac:</span>
+                            {{ ticket.user.name }}
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Sedište:</span>
+                            {{ ticket.seat }}
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Cena:</span>
+                            {{ ticket.price }} RSD
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Datum kupovine:</span>
+                            {{ ticket.created_at|date('d.m.Y. H:i') }}
+                        </p>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -111,7 +111,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/', 'ScreeningController@index')->name('index');
             Route::get('/create', 'ScreeningController@create')->name('create');
             Route::post('/', 'ScreeningController@store')->name('store');
-            // Route::get('/{screening}', 'ScreeningController@show')->name('show');
+            Route::get('/{screening}', 'ScreeningController@show')->name('show');
             // Route::get('/{screening}/edit', 'ScreeningController@edit')->name('edit');
             // Route::post('/{screening}', 'ScreeningController@update')->name('update');
             Route::get('/{screening}/delete', 'ScreeningController@destroy')->name('destroy');
