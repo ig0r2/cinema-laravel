@@ -74,7 +74,7 @@ class MovieController extends Controller
     public function show(int $movie_id): View
     {
         return view('movies.show', [
-            'movie' => Movie::with('genres', 'actors', 'directors')->findOrFail($movie_id),
+            'movie' => Movie::with('genres', 'actors', 'directors', 'reviews.user')->findOrFail($movie_id),
         ]);
     }
 

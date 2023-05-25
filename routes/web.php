@@ -128,5 +128,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             // Route::post('/{ticket}', 'TicketController@update')->name('update');
             Route::get('/{ticket}/delete', 'TicketController@destroy')->name('destroy');
         });
+        Route::group(['prefix' => 'reviews', 'as' => 'reviews.'], function () {
+            /**
+             * Review routes
+             */
+            // Route::get('/', 'ReviewController@index')->name('index');
+            // Route::get('/create/{movie}', 'ReviewController@create')->name('create');
+            Route::post('/{movie}', 'ReviewController@store')->name('store');
+            // Route::get('/{review}', 'ReviewController@show')->name('show');
+            // Route::get('/{review}/edit', 'ReviewController@edit')->name('edit');
+            // Route::post('/{review}', 'ReviewController@update')->name('update');
+            Route::get('/{review}/delete', 'ReviewController@destroy')->name('destroy');
+        });
     });
 });

@@ -37,6 +37,13 @@
                         {{ movie.runtime }} min
                     </p>
                 </div>
+                {# Average rating #}
+                <div class="mt-4">
+                    <p>
+                        <span class="text-gray-400">Ocena:</span>
+                        {{ movie.reviews.avg('rating')|round(2) }}
+                    </p>
+                </div>
                 {# Description #}
                 <div class="mt-4">
                     <p class="text-gray-400">
@@ -142,6 +149,76 @@
                     {% endfor %}
                 {% endif %}
             </div>
+        </div>
+        {# Reviews #}
+        <div>
+            <p class="text-2xl font-bold text-center mt-12 mb-4">
+                Recenzije
+            </p>
+            <div class="flex flex-col gap-4">
+                {% if (movie.reviews|length) == 0 %}
+                    <p class="text-gray-400 text-center mt-4">
+                        Trenutno nema recenzija za ovaj film.
+                    </p>
+                {% else %}
+                    {% for review in movie.reviews %}
+                        <div class="flex flex-col gap-2 bg-gray-900 rounded-md p-4">
+                            <div class="flex justify-between">
+                                <p class="text-gray-400">
+                                    {{ review.user.name }}
+                                </p>
+                                <p class="text-gray-400">
+                                    {{ review.created_at|date('d.m.Y') }}
+                                </p>
+                            </div>
+                            <p class="text-gray-400">
+                                {{ review.rating }}/10
+                            </p>
+                            <p class="text-justify">
+                                {{ review.content }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            {# Post review #}
+            {% if auth_check() and not movie.hasReviewByUser(auth_user()) %}
+                <p class="text-2xl font-bold text-center mt-12 mb-4">
+                    Ostavi recenziju
+                </p>
+                <form action="{{ route('reviews.store', movie.id) }}"
+                    method="POST"
+                    class="flex flex-col gap-4 max-w-lg mx-auto">
+                    {{ csrf_field() }}
+                    <div class="flex flex-col gap-2">
+                        <label for="rating" class="text-gray-400">Ocena</label>
+                        <input type="number"
+                            name="rating"
+                            id="rating"
+                            min="1"
+                            max="10"
+                            class="rounded-md p-2 bg-gray-900"
+                            required />
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label for="content" class="text-gray-400">
+                            Sadržaj
+                        </label>
+                        <textarea name="content"
+                            id="content"
+                            cols="30"
+                            rows="10"
+                            class="rounded-md p-2 bg-gray-900"
+                            required></textarea>
+                    </div>
+                    <div class="flex justify-center">
+                        <button type="submit"
+                            class="bg-gray-900 rounded-md p-2 hover:bg-blue-800">
+                            Ostavi recenziju
+                        </button>
+                    </div>
+                </form>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

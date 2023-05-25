@@ -71,4 +71,28 @@ class Movie extends Model
             })
             ->sortKeys();
     }
+
+    /**
+     * Get the reviews for the movie.
+     */
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    /**
+     * Get the average rating for the movie.
+     */
+    public function averageRating()
+    {
+        return $this->reviews()->avg('rating');
+    }
+
+    /**
+     * Check if the movie has a review by the given user.
+     */
+    public function hasReviewByUser(User $user)
+    {
+        return $this->reviews()->where('user_id', $user->id)->exists();
+    }
 }
