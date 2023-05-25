@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,7 +15,9 @@ class HomeController extends Controller
     public static function index()
     {
         return view('user.index', [
-            'user' => auth()->user()
+            'user' => User::with('tickets.screening.movie', 'tickets.screening.hall')
+                ->where('id', auth()->user()->id)
+                ->firstOrFail(),
         ]);
     }
 }

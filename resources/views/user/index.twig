@@ -1,8 +1,57 @@
 {% extends '@components/layout.twig' %}
 {% block content %}
-    <div class="container">
-        <p class="text-center">
-            Zdravo, {{ user.name }}!
-        </p>
+    <div class="container mx-auto px-4 py-8 mt-8 bg-slate-800 rounded-lg shadow-lg">
+        <div class="w-full">
+            <p class="text-center">
+                Zdravo, {{ user.name }}!
+            </p>
+        </div>
+        <div>
+            <div>
+                <p>
+                    Vaše karte:
+                </p>
+                {% for ticket in user.tickets %}
+                    <a href="{{ route('tickets.show', ticket) }}"
+                        class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
+                        <p>
+                            <span class="text-gray-400">Film:</span>
+                            {{ ticket.screening.movie.title }} ({{
+                                ticket.screening.movie.release_date.year
+                            }})
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Tip projekcije:</span>
+                            {{ ticket.screening.type }}
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Sala:</span>
+                            {{ ticket.screening.hall.name }}
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Datum:</span>
+                            {{ ticket.screening.time|date('d.m.Y.') }}
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Vreme:</span>
+                            {{ ticket.screening.time|date('H:i') }}
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Cena:</span>
+                            {{ ticket.screening.price }} RSD
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Sediste:</span>
+                            {{ ticket.seat }}
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Vreme kupovine:</span>
+                            {{ ticket.created_at|date('d.m.Y.') }}
+                            {{ ticket.created_at|date('H:i') }}
+                        </p>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 {% endblock %}
