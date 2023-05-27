@@ -7,8 +7,13 @@ namespace Database\Seeders;
 use App\Models\Genre;
 use App\Models\Actor;
 use App\Models\Director;
+use App\Models\Hall;
 use App\Models\Movie;
+use App\Models\Review;
+use App\Models\Screening;
+use App\Models\Ticket;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
@@ -21,97 +26,102 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
+        //     'name' => 'Igor Jovanovic',
+        //     'email' => 'igor@formula1.rs',
         // ]);
 
         Schema::disableForeignKeyConstraints();
+        Ticket::truncate();
+        Screening::truncate();
+        Review::truncate();
         Movie::truncate();
         Genre::truncate();
         Actor::truncate();
         Director::truncate();
+        DB::table('movie_actor')->truncate();
+        DB::table('movie_director')->truncate();
+        DB::table('movie_genre')->truncate();
         Schema::enableForeignKeyConstraints();
-        
-        Genre::create([
-            'name' => 'Action',
-        ]);
-        Genre::create([
-            'name' => 'Adventure',
-        ]);
-        Genre::create([
-            'name' => 'Sci-Fi',
-        ]);
-        Genre::create([
-            'name' => 'Comedy',
-        ]);
-        Genre::create([
-            'name' => 'Drama',
-        ]);
-        Genre::create([
-            'name' => 'Fantasy',
-        ]);
-        Genre::create([
-            'name' => 'Horror',
-        ]);
-        Genre::create([
-            'name' => 'Mystery',
-        ]);
 
-        Actor::create([
-            'name' => 'Test Actor',
+        $movie = Movie::create([
+            'title' => 'Star Wars: Episode I - The Phantom Menace',
+            'image_url' => 'movies/dQaWNVW63A2XdqTIcftN729Xefog4zaJYaW1Er9F.jpg',
+            'runtime' => 136,
+            'release_date' => '1999-05-19',
+            'description' =>
+                'Jedi Knights Qui-Gon Jinn and Obi-Wan Kenobi set out to stop the Trade Federation from invading Naboo. While travelling, they come across a gifted boy, Anakin, and learn that the Sith have returned.',
         ]);
-        Actor::create([
-            'name' => 'Test Actor 2',
-        ]);
-        Actor::create([
-            'name' => 'Test Actor 3',
-        ]);
+        $movie
+            ->genres()
+            ->attach([
+                Genre::firstOrCreate(['name' => 'Action'])->id,
+                Genre::firstOrCreate(['name' => 'Adventure'])->id,
+                Genre::firstOrCreate(['name' => 'Fantasy'])->id,
+                Genre::firstOrCreate(['name' => 'Sci-Fi'])->id,
+            ]);
+        $movie
+            ->actors()
+            ->attach([
+                Actor::firstOrCreate(['name' => 'Ewan McGregor'])->id,
+                Actor::firstOrCreate(['name' => 'Liam Neeson'])->id,
+                Actor::firstOrCreate(['name' => 'Natalie Portman'])->id,
+            ]);
+        $movie->directors()->attach([Director::firstOrCreate(['name' => 'George Lucas'])->id]);
+        // $movie->screenings()->create([
+        //     'time' => now()->addDays(1)->setHour(rand(10, 22))->setMinute(rand(0, 1) * 30),
+        //     'price' => rand(300, 600),
+        //     'type' => '3D',
+        //     'hall' => Hall::firstOrCreate(['name' => 'Sala 1'])->id,
+        // ]);
 
-        Director::create([
-            'name' => 'Test Director',
+        $movie = Movie::create([
+            'title' => 'Star Wars: Episode II - Attack of the Clones',
+            'image_url' => 'movies/nkYOFZrA7COJuDNvHqR5oqURTD6kDnlf57PwUCmq.jpg',
+            'runtime' => 142,
+            'release_date' => '2002-05-16',
+            'description' =>
+                'While pursuing an assassin, Obi Wan uncovers a sinister plot to destroy the Republic. With the fate of the galaxy hanging in the balance, the Jedi must defend the galaxy against the evil Sith.',
         ]);
-        Director::create([
-            'name' => 'Test Director 2',
-        ]);
-        Director::create([
-            'name' => 'Test Director 3',
-        ]);
+        $movie
+            ->genres()
+            ->attach([
+                Genre::firstOrCreate(['name' => 'Action'])->id,
+                Genre::firstOrCreate(['name' => 'Adventure'])->id,
+                Genre::firstOrCreate(['name' => 'Fantasy'])->id,
+                Genre::firstOrCreate(['name' => 'Sci-Fi'])->id,
+            ]);
+        $movie
+            ->actors()
+            ->attach([
+                Actor::firstOrCreate(['name' => 'Ewan McGregor'])->id,
+                Actor::firstOrCreate(['name' => 'Natalie Portman'])->id,
+                Actor::firstOrCreate(['name' => 'Hayden Christensen'])->id,
+            ]);
+        $movie->directors()->attach([Director::firstOrCreate(['name' => 'George Lucas'])->id]);
 
-        Movie::create([
-            'title' => 'Star Wars I',
-            'image_url' => 'https://via.placeholder.com/150',
-            'runtime' => 120,
-            'release_date' => '2021-05-20',
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        $movie = Movie::create([
+            'title' => 'Star Wars: Episode III – Revenge of the Sith',
+            'image_url' => 'movies/2wNaiHGJNnq3J1uZWCgBYncQGvwhxrmM0AmN2XLu.jpg',
+            'runtime' => 140,
+            'release_date' => '2005-05-19',
+            'description' =>
+                'Anakin joins forces with Obi-Wan and sets Palpatine free from the evil clutches of Count Doku. However, he falls prey to Palpatine and the Jedis\' mind games and gives into temptation.',
         ]);
-        Movie::create([
-            'title' => 'Star Wars II',
-            'image_url' => 'https://via.placeholder.com/150',
-            'runtime' => 120,
-            'release_date' => '2021-05-20',
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        ]);
-        Movie::create([
-            'title' => 'Star Wars III',
-            'image_url' => 'https://via.placeholder.com/150',
-            'runtime' => 120,
-            'release_date' => '2021-05-20',
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        ]);
-
-        $movie = Movie::find(1);
-        $movie->genres()->attach([1, 3, 5]);
-        $movie->actors()->attach([1, 2, 3]);
-        $movie->directors()->attach([1, 2, 3]);
-
-        $movie = Movie::find(2);
-        $movie->genres()->attach([1, 2, 3]);
-        $movie->actors()->attach([1, 2, 3]);
-        $movie->directors()->attach([1, 2, 3]);
-
-        $movie = Movie::find(3);
-        $movie->genres()->attach([1, 3, 5]);
-        $movie->actors()->attach([1, 2, 3]);
-        $movie->directors()->attach([1, 2, 3]);
+        $movie
+            ->genres()
+            ->attach([
+                Genre::firstOrCreate(['name' => 'Action'])->id,
+                Genre::firstOrCreate(['name' => 'Adventure'])->id,
+                Genre::firstOrCreate(['name' => 'Fantasy'])->id,
+                Genre::firstOrCreate(['name' => 'Sci-Fi'])->id,
+            ]);
+        $movie
+            ->actors()
+            ->attach([
+                Actor::firstOrCreate(['name' => 'Ewan McGregor'])->id,
+                Actor::firstOrCreate(['name' => 'Natalie Portman'])->id,
+                Actor::firstOrCreate(['name' => 'Hayden Christensen'])->id,
+            ]);
+        $movie->directors()->attach([Director::firstOrCreate(['name' => 'George Lucas'])->id]);
     }
 }
