@@ -43,6 +43,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 });
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
+    Route::view('/movies', 'movies.index2', [
+        'movies' => \App\Models\Movie::all(),
+    ]);
+
     Route::group(['prefix' => 'dashboard'], function () {
         Route::group(['prefix' => 'movies'], function () {
             /**
