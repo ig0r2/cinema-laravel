@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Director;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,9 +15,9 @@ class DirectorController extends Controller
      */
     public function index(): View
     {
-        return view('directors.index', [
-            'directors' => Director::all(),
-        ]);
+        $directors = Director::all();
+
+        return view('admin.directors.index', compact('directors'));
     }
 
     /**
@@ -24,7 +25,7 @@ class DirectorController extends Controller
      */
     public function create(): View
     {
-        return view('directors.create');
+        return view('admin.directors.create');
     }
 
     /**
@@ -40,7 +41,7 @@ class DirectorController extends Controller
             'name' => $request->input('name'),
         ]);
 
-        return redirect()->route('directors.index');
+        return redirect()->route('admin.directors.index');
     }
 
     /**
@@ -48,9 +49,7 @@ class DirectorController extends Controller
      */
     public function edit(Director $director): View
     {
-        return view('directors.edit', [
-            'director' => $director,
-        ]);
+        return view('admin.directors.edit', compact('director'));
     }
 
     /**
@@ -66,7 +65,7 @@ class DirectorController extends Controller
             'name' => $request->input('name'),
         ]);
 
-        return redirect()->route('directors.index');
+        return redirect()->route('admin.directors.index');
     }
 
     /**
@@ -76,6 +75,6 @@ class DirectorController extends Controller
     {
         $director->delete();
 
-        return redirect()->route('directors.index');
+        return redirect()->route('admin.directors.index');
     }
 }

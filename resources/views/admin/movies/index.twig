@@ -1,0 +1,35 @@
+{% extends '@components/layout.twig' %}
+{% block content %}
+    <div class="container mx-auto p-4">
+        <div class="my-2">
+            <h1 class="text-2xl font-bold text-center">
+                Filmovi
+            </h1>
+            <div class="flex mt-2">
+                <a href="{{ route('admin.movies.create') }}"
+                    class="ms-auto px-2 p-1 rounded-md bg-blue-500 hover:bg-blue-700">
+                    Dodaj film
+                </a>
+            </div>
+        </div>
+        {% for movie in movies %}
+            <div class="w-full flex items-center mt-2 p-2 gap-2 bg-slate-800 rounded-md">
+                <p>
+                    {{ movie.title }} ({{ movie.release_date.year }})
+                </p>
+                <a href="{{ route('movies.show', movie.id) }}"
+                    class="ms-auto px-2 p-1 rounded-md bg-green-500 hover:bg-green-700">
+                    Pogledaj
+                </a>
+                <a href="{{ route('admin.movies.edit', movie.id) }}"
+                    class="px-2 p-1 rounded-md bg-blue-500 hover:bg-blue-700">
+                    Izmeni
+                </a>
+                <a href="{{ route('admin.movies.destroy', movie.id) }}"
+                    class="px-2 p-1 rounded-md bg-red-500 hover:bg-red-800">
+                    Obriši
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

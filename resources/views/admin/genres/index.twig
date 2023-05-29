@@ -3,29 +3,25 @@
     <div class="container mx-auto p-4">
         <div class="my-2">
             <h1 class="text-2xl font-bold text-center">
-                Projekcije
+                Žanrovi
             </h1>
             <div class="flex mt-2">
-                <a href="{{ route('screenings.create') }}"
+                <a href="{{ route('admin.genres.create') }}"
                     class="ms-auto px-2 p-1 rounded-md bg-blue-500 hover:bg-blue-700">
-                    Dodaj projekciju
+                    Novi žanr
                 </a>
             </div>
         </div>
-        {% for screening in screenings %}
+        {% for genre in genres %}
             <div class="w-full flex items-center mt-2 p-2 gap-2 bg-slate-800 rounded-md">
                 <p>
-                    {{ screening.movie.title }} - {{
-                        screening.time|date('d.m.')
-                    }} u {{ screening.time|date('H:i') }} - {{
-                        screening.hall.name
-                    }}
+                    {{ genre.name }}
                 </p>
-                <a href="{{ route('screenings.show', screening.id) }}"
+                <a href="{{ route('admin.genres.edit', genre.id) }}"
                     class="ms-auto px-2 p-1 rounded-md bg-blue-500 hover:bg-blue-700">
-                    Prikaži
+                    Izmeni
                 </a>
-                <a href="{{ route('screenings.destroy', screening.id) }}"
+                <a href="{{ route('admin.genres.destroy', genre.id) }}"
                     class="px-2 p-1 rounded-md bg-red-500 hover:bg-red-800">
                     Obriši
                 </a>

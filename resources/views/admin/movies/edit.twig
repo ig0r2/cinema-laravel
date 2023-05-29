@@ -1,15 +1,15 @@
 {% extends '@components/layout.twig' %}
 {% block content %}
     <div class="container mx-auto p-4 rounded-md bg-slate-800">
-        <form action="{{ route('movies.store') }}"
+        <form action="{{ route('admin.movies.update', movie.id) }}"
             method="POST"
             enctype="multipart/form-data">
             {{ csrf_field() }}
             <h2 class="text-lg text-center">
-                Dodaj film
+                Izmeni film
             </h2>
             <div>
-                <a href="{{ route('movies.index') }}"
+                <a href="{{ route('admin.movies.index') }}"
                     class="text-gray-400 hover:text-gray-300">
                     Nazad
                 </a>
@@ -18,7 +18,7 @@
                 {# Image #}
                 <div class="h-full">
                     <label for="image" class="cursor-pointer">
-                        <img src="https://placehold.co/200x300/gray/gray/?text=Dodaj sliku za film"
+                        <img src="{{ asset('storage/' ~ movie.image_url) }}"
                             alt="Movie image"
                             class="w-full h-full object-cover rounded-md mt-4" />
                     </label>
@@ -37,7 +37,7 @@
                             name="title"
                             id="title"
                             class="bg-gray-900 text-white rounded-md mt-1 w-full p-2"
-                            value="{{ old('title') }}" />
+                            value="{{ movie.title }}" />
                         {% if errors.has('title') %}
                             <div class="text-red-500 text-sm mt-1">
                                 {{ errors.first('title') }}
@@ -51,7 +51,7 @@
                             name="release_date"
                             id="release_date"
                             class="bg-gray-900 text-white rounded-md mt-1 w-full p-2"
-                            value="{{ old('release_date') }}" />
+                            value="{{ movie.release_date.format('Y-m-d') }}" />
                         {% if errors.has('release_date') %}
                             <div class="text-red-500 text-sm mt-1">
                                 {{ errors.first('release_date') }}
@@ -65,7 +65,7 @@
                             name="runtime"
                             id="runtime"
                             class="bg-gray-900 text-white rounded-md mt-1 w-full p-2"
-                            value="{{ old('runtime') }}" />
+                            value="{{ movie.runtime }}" />
                         {% if errors.has('runtime') %}
                             <div class="text-red-500 text-sm mt-1">
                                 {{ errors.first('runtime') }}
@@ -79,7 +79,7 @@
                             id="description"
                             class="bg-gray-900 text-white rounded-md mt-1 w-full p-2"
                             rows="5">
-                            {{ old('description') }}
+                            {{ movie.description }}
                         </textarea>
                         {% if errors.has('description') %}
                             <div class="text-red-500 text-sm mt-1">
@@ -99,7 +99,7 @@
                                             id="genre-{{ genre.id }}"
                                             value="{{ genre.id }}"
                                             {{
-                                            genre.id in old('genres')
+                                            genre.id in movie.genres.pluck('id')
                                                 ? 'checked'
                                                 : ''
                                             }} />
@@ -128,7 +128,7 @@
                                             id="actor-{{ actor.id }}"
                                             value="{{ actor.id }}"
                                             {{
-                                            actor.id in old('actors')
+                                            actor.id in movie.actors.pluck('id')
                                                 ? 'checked'
                                                 : ''
                                             }} />
@@ -157,7 +157,8 @@
                                             id="director-{{ director.id }}"
                                             value="{{ director.id }}"
                                             {{
-                                            director.id in old('directors')
+                                            director.id
+                                                in movie.directors.pluck('id')
                                                 ? 'checked'
                                                 : ''
                                             }} />
@@ -177,7 +178,7 @@
                     {# Submit #}
                     <div class="flex mt-4">
                         <input type="submit"
-                            value="Dodaj film"
+                            value="Izmeni film"
                             class="ms-auto bg-white text-black rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer" />
                     </div>
                 </div>

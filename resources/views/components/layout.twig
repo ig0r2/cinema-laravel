@@ -13,7 +13,12 @@
     </head>
     <body>
         <div id="app">
-            {% include '@components/navbar/navbar.twig' %}
+            <div>
+                {% include '@components/navbar/navbar.twig' %}
+                {% if auth_check() %}
+                    {% include '@components/navbar/admin.twig' %}
+                {% endif %}
+            </div>
             <main>
                 {% block content %}
 

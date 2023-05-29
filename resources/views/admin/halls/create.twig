@@ -1,7 +1,7 @@
 {% extends '@components/layout.twig' %}
 {% block content %}
     <div class="w-full sm:max-w-md mx-auto p-4 rounded-md bg-slate-800">
-        <form action="{{ route('halls.store') }}"
+        <form action="{{ route('admin.halls.store') }}"
             method="POST"
             enctype="multipart/form-data">
             {{ csrf_field() }}
@@ -9,7 +9,7 @@
                 Dodaj salu
             </h2>
             <div>
-                <a href="{{ route('halls.index') }}"
+                <a href="{{ route('admin.halls.index') }}"
                     class="text-gray-400 hover:text-gray-300">
                     Nazad
                 </a>

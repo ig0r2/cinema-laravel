@@ -11,23 +11,11 @@ use Illuminate\View\View;
 class TicketController extends Controller
 {
     /**
-     * Show the tickets page.
-     */
-    public function index(): View
-    {
-        return view('tickets.index', [
-            'tickets' => Ticket::all(),
-        ]);
-    }
-
-    /**
      * Show the form for creating a new ticket for a screening.
      */
     public function create(Screening $screening): View
     {
-        return view('tickets.create', [
-            'screening' => $screening,
-        ]);
+        return view('tickets.create', compact('screening'));
     }
 
     /**
@@ -66,18 +54,6 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket): View
     {
-        return view('tickets.show', [
-            'ticket' => $ticket,
-        ]);
-    }
-
-    /**
-     * Delete the specified ticket from the database.
-     */
-    public function destroy(Ticket $ticket): RedirectResponse
-    {
-        $ticket->delete();
-
-        return redirect()->route('tickets.index');
+        return view('tickets.show', compact('ticket'));
     }
 }

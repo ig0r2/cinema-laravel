@@ -29,14 +29,4 @@ class ReviewController extends Controller
 
         return redirect()->route('movies.show', $movie);
     }
-
-    /**
-     * Delete the given review.
-     */
-    public function destroy(Movie $movie, Review $review): RedirectResponse
-    {
-        $review->delete();
-
-        return redirect()->route('movies.show', $movie);
-    }
 }

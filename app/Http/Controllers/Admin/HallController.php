@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Hall;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,9 +15,9 @@ class HallController extends Controller
      */
     public function index(): View
     {
-        return view('halls.index', [
-            'halls' => Hall::all(),
-        ]);
+        $halls = Hall::all();
+
+        return view('admin.halls.index', compact('halls'));
     }
 
     /**
@@ -24,7 +25,7 @@ class HallController extends Controller
      */
     public function create(): View
     {
-        return view('halls.create');
+        return view('admin.halls.create');
     }
 
     /**
@@ -42,7 +43,7 @@ class HallController extends Controller
             'capacity' => $request->input('capacity'),
         ]);
 
-        return redirect()->route('halls.index');
+        return redirect()->route('admin.halls.index');
     }
 
     /**
@@ -50,9 +51,7 @@ class HallController extends Controller
      */
     public function edit(Hall $hall): View
     {
-        return view('halls.edit', [
-            'hall' => $hall,
-        ]);
+        return view('admin.halls.edit', compact('hall'));
     }
 
     /**
@@ -70,7 +69,7 @@ class HallController extends Controller
             'capacity' => $request->input('capacity'),
         ]);
 
-        return redirect()->route('halls.index');
+        return redirect()->route('admin.halls.index');
     }
 
     /**
@@ -78,8 +77,14 @@ class HallController extends Controller
      */
     public function destroy(Hall $hall): RedirectResponse
     {
-        $hall->delete();
+        try {
+            $hall->delete();
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('admin.halls.index')
+                ->with('error', 'Hall is in use and cannot be deleted.');
+        }
 
-        return redirect()->route('halls.index');
+        return redirect()->route('admin.halls.index');
     }
 }

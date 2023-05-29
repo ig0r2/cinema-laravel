@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Actor;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -14,9 +15,9 @@ class ActorController extends Controller
      */
     public function index(): View
     {
-        return view('actors.index', [
-            'actors' => Actor::all(),
-        ]);
+        $actors = Actor::all();
+
+        return view('admin.actors.index', compact('actors'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ActorController extends Controller
      */
     public function create(): View
     {
-        return view('actors.create');
+        return view('admin.actors.create');
     }
 
     /**
@@ -40,7 +41,7 @@ class ActorController extends Controller
             'name' => $request->input('name'),
         ]);
 
-        return redirect()->route('actors.index');
+        return redirect()->route('admin.actors.index');
     }
 
     /**
@@ -48,9 +49,7 @@ class ActorController extends Controller
      */
     public function edit(Actor $actor): View
     {
-        return view('actors.edit', [
-            'actor' => $actor,
-        ]);
+        return view('admin.actors.edit', compact('actor'));
     }
 
     /**
@@ -66,7 +65,7 @@ class ActorController extends Controller
             'name' => $request->input('name'),
         ]);
 
-        return redirect()->route('actors.index');
+        return redirect()->route('admin.actors.index');
     }
 
     /**
@@ -76,6 +75,6 @@ class ActorController extends Controller
     {
         $actor->delete();
 
-        return redirect()->route('actors.index');
+        return redirect()->route('admin.actors.index');
     }
 }

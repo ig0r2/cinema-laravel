@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Genre;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,9 +15,9 @@ class GenreController extends Controller
      */
     public function index(): View
     {
-        return view('genres.index', [
-            'genres' => Genre::all(),
-        ]);
+        $genres = Genre::all();
+
+        return view('admin.genres.index', compact('genres'));
     }
 
     /**
@@ -24,7 +25,7 @@ class GenreController extends Controller
      */
     public function create(): View
     {
-        return view('genres.create');
+        return view('admin.genres.create');
     }
 
     /**
@@ -36,7 +37,7 @@ class GenreController extends Controller
         $genre->name = $request->input('name');
         $genre->save();
 
-        return redirect()->route('genres.index');
+        return redirect()->route('admin.genres.index');
     }
 
     /**
@@ -44,9 +45,7 @@ class GenreController extends Controller
      */
     public function edit(Genre $genre): View
     {
-        return view('genres.edit', [
-            'genre' => $genre,
-        ]);
+        return view('admin.genres.edit', compact('genre'));
     }
 
     /**
@@ -57,7 +56,7 @@ class GenreController extends Controller
         $genre->name = $request->input('name');
         $genre->save();
 
-        return redirect()->route('genres.index');
+        return redirect()->route('admin.genres.index');
     }
 
     /**
@@ -67,6 +66,6 @@ class GenreController extends Controller
     {
         $genre->delete();
 
-        return redirect()->route('genres.index');
+        return redirect()->route('admin.genres.index');
     }
 }
