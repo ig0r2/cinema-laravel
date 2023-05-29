@@ -14,10 +14,14 @@ class HomeController extends Controller
      */
     public static function index()
     {
-        return view('user.index', [
-            'user' => User::with('tickets.screening.movie', 'tickets.screening.hall')
-                ->where('id', auth()->user()->id)
-                ->firstOrFail(),
-        ]);
+        $user = User::with('tickets.screening.movie', 'tickets.screening.hall', 'reviews.movie')
+            ->where('id', auth()->user()->id)
+            ->firstOrFail();
+        $tickets = $user->tickets;
+        $activeTickets = $tickets->where('screening.time', '>', now());
+        $pastTickets = $tickets->where('screening.time', '<', now());
+        $reviews = $user->reviews;
+
+        return view('user.index', compact('user', 'tickets', 'activeTickets', 'pastTickets', 'reviews'));
     }
 }

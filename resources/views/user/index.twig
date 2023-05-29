@@ -6,12 +6,17 @@
                 Zdravo, {{ user.name }}!
             </p>
         </div>
-        <div>
+        <div class="mt-8 flex flex-col md:flex-row gap-8 justify-center">
             <div>
                 <p>
-                    Vaše karte:
+                    Moje karte
                 </p>
-                {% for ticket in user.tickets %}
+                {% if (activeTickets|length) == 0 %}
+                    <p class="mt-4 text-gray-400">
+                        Nema karata
+                    </p>
+                {% endif %}
+                {% for ticket in activeTickets %}
                     <a href="{{ route('tickets.show', ticket) }}"
                         class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
                         <p>
@@ -48,6 +53,82 @@
                             <span class="text-gray-400">Vreme kupovine:</span>
                             {{ ticket.created_at|date('d.m.Y.') }}
                             {{ ticket.created_at|date('H:i') }}
+                        </p>
+                    </a>
+                {% endfor %}
+                <p class="mt-4">
+                    Istorija kupovine
+                </p>
+                {% if (pastTickets|length) == 0 %}
+                    <p class="mt-4 text-gray-400">
+                        Nema karata
+                    </p>
+                {% endif %}
+                {% for ticket in pastTickets %}
+                    <a href="{{ route('tickets.show', ticket) }}"
+                        class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-700 hover:bg-blue-700 transition-colors duration-300">
+                        <p>
+                            <span class="text-gray-400">Film:</span>
+                            {{ ticket.screening.movie.title }} ({{
+                                ticket.screening.movie.release_date.year
+                            }})
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Tip projekcije:</span>
+                            {{ ticket.screening.type }}
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Sala:</span>
+                            {{ ticket.screening.hall.name }}
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Datum:</span>
+                            {{ ticket.screening.time|date('d.m.Y.') }}
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Vreme:</span>
+                            {{ ticket.screening.time|date('H:i') }}
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Cena:</span>
+                            {{ ticket.screening.price }} RSD
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Sediste:</span>
+                            {{ ticket.seat }}
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Vreme kupovine:</span>
+                            {{ ticket.created_at|date('d.m.Y.') }}
+                            {{ ticket.created_at|date('H:i') }}
+                        </p>
+                    </a>
+                {% endfor %}
+            </div>
+            <div>
+                <p>
+                    Moje recenzije
+                </p>
+                {% for review in reviews %}
+                    <a href="{{ route('reviews.store', review) }}"
+                        class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
+                        <p>
+                            <span class="text-gray-400">Film:</span>
+                            {{ review.movie.title }} ({{
+                                review.movie.release_date.year
+                            }})
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Ocena:</span>
+                            {{ review.rating }}
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Komentar:</span>
+                            {{ review.content }}
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Vreme:</span>
+                            {{ review.created_at|date('d.m.Y. H:i') }}
                         </p>
                     </a>
                 {% endfor %}
