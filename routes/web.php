@@ -153,4 +153,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
         Route::get('/', 'ReviewController@index')->name('index');
         Route::get('/{review}/delete', 'ReviewController@destroy')->name('destroy');
     });
+    Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+        /**
+         * User routes
+         */
+        Route::get('/', 'UserController@index')->name('index');
+        Route::get('/{user}', 'UserController@show')->name('show');
+        Route::get('/{user}/delete', 'UserController@destroy')->name('destroy');
+    });
 });
