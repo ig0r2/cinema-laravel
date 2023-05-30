@@ -66,6 +66,7 @@ class Movie extends Model
         return $this->screenings()
             ->with('hall')
             ->get()
+            ->sortBy('time')
             ->groupBy(function ($item) {
                 return $item->time->format('Y-m-d');
             })
