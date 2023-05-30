@@ -12,6 +12,7 @@ use App\Models\Movie;
 use App\Models\Review;
 use App\Models\Screening;
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -23,13 +24,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Igor Jovanovic',
-        //     'email' => 'igor@formula1.rs',
-        // ]);
-
         Schema::disableForeignKeyConstraints();
         Ticket::truncate();
         Screening::truncate();
@@ -38,10 +32,24 @@ class DatabaseSeeder extends Seeder
         Genre::truncate();
         Actor::truncate();
         Director::truncate();
+        Hall::truncate();
+        User::truncate();
         DB::table('movie_actor')->truncate();
         DB::table('movie_director')->truncate();
         DB::table('movie_genre')->truncate();
         Schema::enableForeignKeyConstraints();
+
+        User::factory()->create([
+            'name' => 'Igor Jovanovic',
+            'email' => 'igor@formula1.rs',
+        ]);
+        $users = User::factory(10)->create();
+
+        Hall::create(['name' => 'Sala 1', 'capacity' => 50]);
+        Hall::create(['name' => 'Sala 2', 'capacity' => 25]);
+        Hall::create(['name' => 'Sala 3', 'capacity' => 40]);
+        Hall::create(['name' => 'Sala 4', 'capacity' => 30]);
+        $halls = Hall::all();
 
         $movie = Movie::create([
             'title' => 'Star Wars: Episode I - The Phantom Menace',
@@ -67,12 +75,6 @@ class DatabaseSeeder extends Seeder
                 Actor::firstOrCreate(['name' => 'Natalie Portman'])->id,
             ]);
         $movie->directors()->attach([Director::firstOrCreate(['name' => 'George Lucas'])->id]);
-        // $movie->screenings()->create([
-        //     'time' => now()->addDays(1)->setHour(rand(10, 22))->setMinute(rand(0, 1) * 30),
-        //     'price' => rand(300, 600),
-        //     'type' => '3D',
-        //     'hall' => Hall::firstOrCreate(['name' => 'Sala 1'])->id,
-        // ]);
 
         $movie = Movie::create([
             'title' => 'Star Wars: Episode II - Attack of the Clones',
@@ -123,5 +125,40 @@ class DatabaseSeeder extends Seeder
                 Actor::firstOrCreate(['name' => 'Hayden Christensen'])->id,
             ]);
         $movie->directors()->attach([Director::firstOrCreate(['name' => 'George Lucas'])->id]);
+
+        $movies = Movie::all();
+        $movies->each(function ($movie) use ($halls, $users) {
+            for ($i = 0; $i < 30; $i++) {
+                $hall = $halls->random();
+                $screening = Screening::create([
+                    'time' => fake()->dateTimeBetween('-2 days', '+5 days'),
+                    'price' => fake()->numberBetween(300, 600),
+                    'type' => fake()->randomElement(['2D', '3D', '4DX', 'IMAX', '5D']),
+                    'seats_available' => $hall->capacity,
+                    'hall_id' => $hall->id,
+                    'movie_id' => $movie->id,
+                ]);
+                for ($j = 0; $j < $hall->capacity / 5; $j++) {
+                    Ticket::create([
+                        'screening_id' => $screening->id,
+                        'seat' => $j + 1,
+                        'price' => $screening->price,
+                        'user_id' => $users->random()->id,
+                    ]);
+                    $screening->seats_available--;
+                }
+                $screening->save();
+            }
+            $users->each(function ($user) use ($movie) {
+                if (fake()->boolean(50)) {
+                    Review::create([
+                        'rating' => fake()->numberBetween(1, 10),
+                        'content' => fake()->paragraph(3),
+                        'user_id' => $user->id,
+                        'movie_id' => $movie->id,
+                    ]);
+                }
+            });
+        });
     }
 }
