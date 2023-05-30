@@ -1,9 +1,11 @@
 <nav class="p-4 flex gap-4 bg-slate-800">
-    <a href="{{ route('admin.movies.index') }}">Filmovi</a>
-    <a href="{{ route('admin.genres.index') }}">Žanrovi</a>
-    <a href="{{ route('admin.actors.index') }}">Glumci</a>
-    <a href="{{ route('admin.directors.index') }}">Režiseri</a>
-    <a href="{{ route('admin.halls.index') }}">Sale</a>
+    {% if auth_user().isAdmin() %}
+        <a href="{{ route('admin.movies.index') }}">Filmovi</a>
+        <a href="{{ route('admin.genres.index') }}">Žanrovi</a>
+        <a href="{{ route('admin.actors.index') }}">Glumci</a>
+        <a href="{{ route('admin.directors.index') }}">Režiseri</a>
+        <a href="{{ route('admin.halls.index') }}">Sale</a>
+    {% endif %}
     <a href="{{ route('admin.screenings.index') }}">Projekcije</a>
     <a href="{{ route('admin.tickets.index') }}">Karte</a>
     <a href="{{ route('admin.users.index') }}">Korisnici</a>
