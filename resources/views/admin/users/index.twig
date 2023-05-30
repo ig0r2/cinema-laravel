@@ -15,6 +15,10 @@
                     class="ms-auto px-2 p-1 rounded-md bg-green-500 hover:bg-green-700">
                     Prikaži
                 </a>
+                <a href="{{ route('admin.users.edit', user.id) }}"
+                    class="px-2 p-1 rounded-md bg-blue-500 hover:bg-blue-700">
+                    Izmeni
+                </a>
                 <a href="{{ route('admin.users.destroy', user.id) }}"
                     class="px-2 p-1 rounded-md bg-red-500 hover:bg-red-800">
                     Obriši

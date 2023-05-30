@@ -159,6 +159,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
          */
         Route::get('/', 'UserController@index')->name('index');
         Route::get('/{user}', 'UserController@show')->name('show');
+        Route::get('/{user}/edit', 'UserController@edit')->name('edit');
+        Route::post('/{user}', 'UserController@update')->name('update');
+        Route::get('/{user}/ban', 'UserController@ban')->name('ban');
+        Route::get('/{user}/unban', 'UserController@unban')->name('unban');
         Route::get('/{user}/delete', 'UserController@destroy')->name('destroy');
     });
 });

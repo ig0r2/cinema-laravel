@@ -37,6 +37,29 @@ class UserController extends Controller
     }
 
     /**
+     * Show the user edit page.
+     */
+    public function edit(User $user): View
+    {
+        return view('admin.users.edit', compact('user'));
+    }
+
+    /**
+     * Update the user.
+     */
+    public function update(Request $request, User $user): RedirectResponse
+    {
+        $request->validate([
+            'role' => 'required|int|between:0,2',
+        ]);
+        $user->update($request->only('role'));
+
+        return redirect()
+            ->back()
+            ->with('success', 'User updated.');
+    }
+
+    /**
      * Delete the user.
      */
     public function destroy(User $user): RedirectResponse
