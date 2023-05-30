@@ -64,6 +64,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/create/{screening}', 'TicketController@create')->name('create');
             Route::post('/{screening}', 'TicketController@store')->name('store');
             Route::get('/{ticket}', 'TicketController@show')->name('show');
+            Route::get('/{ticket}/pdf', 'TicketController@pdf')->name('pdf');
         });
         Route::group(['prefix' => 'reviews', 'as' => 'reviews.'], function () {
             /**

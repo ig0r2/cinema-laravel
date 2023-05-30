@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>
+            Karta
+        </title>
+        <style>
+            * { font-family: sans-serif; box-sizing: border-box; } table {
+            margin: 50px auto 5px auto; border-collapse: collapse; border: 1px
+            solid #000; } table td, table th { padding: 10px; } table th {
+            padding: 20px 25px; } table td:nth-child(1) { padding-left: 25px; }
+            table td:last-child { padding-right: 25px; } table tr:last-child td
+            { padding-bottom: 20px; } .text-color-gray { font-size: 15px; color:
+            #999; } .purchase-time { text-align: center; font-size: 14px; color:
+            #999; }
+        </style>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="4">
+                        {{ ticket.screening.movie.title }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-color-gray">
+                        Format:
+                    </td>
+                    <td>
+                        {{ ticket.screening.type }}
+                    </td>
+                    <td class="text-color-gray">
+                        Sala:
+                    </td>
+                    <td>
+                        {{ ticket.screening.hall.name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-color-gray">
+                        Datum:
+                    </td>
+                    <td>
+                        {{ ticket.screening.time|date('d.m.Y') }}
+                    </td>
+                    <td class="text-color-gray">
+                        Sediste:
+                    </td>
+                    <td>
+                        {{ ticket.seat }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-color-gray">
+                        Vreme:
+                    </td>
+                    <td>
+                        {{ ticket.screening.time|date('H:i') }}
+                    </td>
+                    <td class="text-color-gray">
+                        Cena:
+                    </td>
+                    <td>
+                        {{ ticket.screening.price }} RSD
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="purchase-time">
+            Vreme kupovine: {{ ticket.created_at|date('d.m.Y H:i') }}
+        </p>
+    </body>
+</html>

@@ -6,7 +6,9 @@ use App\Models\Ticket;
 use App\Models\Screening;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
+use PDF;
 
 class TicketController extends Controller
 {
@@ -55,5 +57,16 @@ class TicketController extends Controller
     public function show(Ticket $ticket): View
     {
         return view('tickets.show', compact('ticket'));
+    }
+
+    /**
+     * Show the pdf
+     */
+    public function pdf(Ticket $ticket): Response
+    {
+        $ticket->load('screening.movie', 'screening.hall', 'user');
+        $pdf = PDF::loadView('pdf.ticket', compact('ticket'));
+
+        return $pdf->download('ticket ' . $ticket->id . '.pdf');
     }
 }
