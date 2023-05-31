@@ -8,7 +8,9 @@ use App\Models\Movie;
 use App\Models\Screening;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
+use PDF;
 
 class ScreeningController extends Controller
 {
@@ -56,6 +58,27 @@ class ScreeningController extends Controller
         ]);
 
         return redirect()->route('admin.screenings.index');
+    }
+
+    /**
+     * Show the specified screening.
+     */
+    public function show(Screening $screening): View
+    {
+        $screening->load('movie', 'hall', 'tickets.user');
+        return view('admin.screenings.show', compact('screening'));
+    }
+
+    /**
+     * Show the pdf
+     */
+    public function pdf(Screening $screening): Response
+    {
+        $screening->load('movie', 'hall', 'tickets.user');
+        $tickets = $screening->tickets;
+        $pdf = PDF::loadView('pdf.screening', compact('screening', 'tickets'));
+
+        return $pdf->download('projekcija ' . $screening->id . '.pdf');
     }
 
     /**

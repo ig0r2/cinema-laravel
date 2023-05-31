@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>
+            Projekcija
+        </title>
+        <style>
+            * { font-family: sans-serif; box-sizing: border-box; } .container {
+            margin: 0 auto; width: max-content; border: 1px black solid;
+            padding: 20px; } table { width: 100%; border-collapse: collapse; }
+            table td, table th { padding: 10px; } table th { padding: 10px 25px;
+            } .text-color-gray { font-size: 15px; color: #999; } #tickets thead
+            tr th { border-bottom: 1px solid #000; } #tickets tbody tr td {
+            border-bottom: 1px solid #a5a5a5; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="text-color-gray">
+                            Film:
+                        </td>
+                        <td>
+                            {{ screening.movie.title }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-color-gray">
+                            Format:
+                        </td>
+                        <td>
+                            {{ screening.type }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-color-gray">
+                            Sala:
+                        </td>
+                        <td>
+                            {{ screening.hall.name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-color-gray">
+                            Datum:
+                        </td>
+                        <td>
+                            {{ screening.time|date('d.m.Y') }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-color-gray">
+                            Vreme:
+                        </td>
+                        <td>
+                            {{ screening.time|date('H:i') }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-color-gray">
+                            Cena:
+                        </td>
+                        <td>
+                            {{ screening.price }} RSD
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="text-align: center">
+                Karte: {{ tickets|length }} / {{ screening.hall.capacity }}
+            </p>
+            <table id="tickets">
+                <thead>
+                    <tr>
+                        <th style="text-align: left">
+                            Kupac
+                        </th>
+                        <th>
+                            Sedište
+                        </th>
+                        <th>
+                            Cena
+                        </th>
+                        <th>
+                            Vreme
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in tickets %}
+                        <tr>
+                            <td>
+                                {{ ticket.user.name }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ ticket.seat }}
+                            </td>
+                            <td>
+                                {{ ticket.price }} RSD
+                            </td>
+                            <td>
+                                {{ ticket.created_at|date('d.m.Y H:i') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p>
+                <span class="text-color-gray">Ukupna cena:</span>
+                {{ tickets.sum('price') }} RSD
+            </p>
+            <p>
+                <span class="text-color-gray">Vreme štampe:</span>
+                {{ 'now'|date('d.m.Y H:i') }}
+            </p>
+        </div>
+    </body>
+</html>

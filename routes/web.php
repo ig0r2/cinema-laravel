@@ -50,12 +50,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/', 'MovieController@index')->name('index');
         Route::get('/{movie}', 'MovieController@show')->name('show');
     });
-    Route::group(['prefix' => 'screenings', 'as' => 'screenings.'], function () {
-        /**
-         * Screening routes
-         */
-        Route::get('/{screening}', 'ScreeningController@show')->name('show');
-    });
     Route::group(['middleware' => ['auth']], function () {
         Route::group(['prefix' => 'tickets', 'as' => 'tickets.'], function () {
             /**
@@ -158,6 +152,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
             Route::get('/', 'ScreeningController@index')->name('index');
             Route::get('/create', 'ScreeningController@create')->name('create');
             Route::post('/', 'ScreeningController@store')->name('store');
+            Route::get('/{screening}', 'ScreeningController@show')->name('show');
+            Route::get('/{screening}/pdf', 'ScreeningController@pdf')->name('pdf');
             Route::get('/{screening}/delete', 'ScreeningController@destroy')->name('destroy');
         });
         Route::group(['prefix' => 'tickets', 'as' => 'tickets.'], function () {

@@ -1,6 +1,6 @@
 {% extends '@components/layout.twig' %}
 {% block content %}
-    <div class="w-full sm:max-w-md mx-auto p-4 rounded-md bg-slate-800">
+    <div class="w-full sm:max-w-md mx-auto my-4 p-4 rounded-md bg-slate-800">
         <h2 class="text-lg text-center">
             Projekcija
         </h2>
@@ -37,6 +37,10 @@
                 <span class="text-gray-400">Cena:</span>
                 {{ screening.price }} RSD
             </p>
+            <a href="{{ route('admin.screenings.pdf', screening) }}"
+                class="bg-slate-700 text-white text-center rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white">
+                Preuzmi PDF
+            </a>
             <div class="mt-4 flex flex-col gap-2">
                 <h3 class="text-lg">
                     Kupljene karte
