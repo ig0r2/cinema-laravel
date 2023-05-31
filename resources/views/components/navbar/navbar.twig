@@ -3,6 +3,7 @@
     <a href="{{ route('movies.index') }}">Filmovi</a>
 
     {% if auth_check() %}
+        <a href="{{ route('messages.index') }}">Kontakt</a>
         <a href="/home" class="ms-auto">Profil</a>
         <a href="/logout">Logout</a>
     {% else %}

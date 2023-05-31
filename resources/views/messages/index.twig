@@ -1,0 +1,47 @@
+{% extends '@components/layout.twig' %}
+{% block content %}
+    <div class="max-w-4xl mx-auto p-4">
+        <div class="my-2">
+            <h1 class="text-2xl font-bold text-center">
+                Poruke
+            </h1>
+        </div>
+        <div class="flex my-2">
+            <a href="{{ route('messages.create') }}"
+                class="ms-auto px-2 p-1 rounded-md bg-blue-500 hover:bg-blue-700">
+                Nova poruka
+            </a>
+        </div>
+        {% for message in messages %}
+            <div class="w-full flex items-center mt-2 p-2 gap-2 bg-slate-800 rounded-md">
+                <div>
+                    <div class="text-lg font-bold">
+                        {{ message.subject }}
+                    </div>
+                    <div class="text-sm">
+                        {{ message.created_at|date('d.m.Y H:i') }}
+                    </div>
+                </div>
+                <p class="ms-auto text-gray-400">
+                    {% if message.reply is not null %}
+                        1 odgovor
+                    {% else %}
+                        0 odgovora
+                    {% endif %}
+                </p>
+                <a href="{{ route('messages.show', message) }}"
+                    class="px-2 p-1 rounded-md bg-green-500 hover:bg-green-700">
+                    Pogledaj
+                </a>
+            </div>
+        {% else %}
+            <div class="my-2">
+                <div class="rounded shadow p-4">
+                    <div class="text-center">
+                        Nema poruka
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

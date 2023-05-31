@@ -11,11 +11,6 @@
                 <p>
                     Moje karte
                 </p>
-                {% if (activeTickets|length) == 0 %}
-                    <p class="mt-4 text-gray-400">
-                        Nema karata
-                    </p>
-                {% endif %}
                 {% for ticket in activeTickets %}
                     <a href="{{ route('tickets.show', ticket) }}"
                         class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
@@ -55,15 +50,14 @@
                             {{ ticket.created_at|date('H:i') }}
                         </p>
                     </a>
+                {% else %}
+                    <p class="mt-4 text-gray-400">
+                        Nema karata
+                    </p>
                 {% endfor %}
                 <p class="mt-4">
                     Istorija kupovine
                 </p>
-                {% if (pastTickets|length) == 0 %}
-                    <p class="mt-4 text-gray-400">
-                        Nema karata
-                    </p>
-                {% endif %}
                 {% for ticket in pastTickets %}
                     <a href="{{ route('tickets.show', ticket) }}"
                         class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-700 hover:bg-blue-700 transition-colors duration-300">
@@ -103,6 +97,10 @@
                             {{ ticket.created_at|date('H:i') }}
                         </p>
                     </a>
+                {% else %}
+                    <p class="mt-4 text-gray-400">
+                        Nema karata
+                    </p>
                 {% endfor %}
             </div>
             <div>
@@ -110,7 +108,7 @@
                     Moje recenzije
                 </p>
                 {% for review in reviews %}
-                    <a href="{{ route('reviews.store', review) }}"
+                    <a href="{{ route('movies.show', review.movie) }}"
                         class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
                         <p>
                             <span class="text-gray-400">Film:</span>
@@ -131,6 +129,37 @@
                             {{ review.created_at|date('d.m.Y. H:i') }}
                         </p>
                     </a>
+                {% else %}
+                    <p class="mt-4 text-gray-400">
+                        Nema recenzija
+                    </p>
+                {% endfor %}
+                <p class="mt-4">
+                    Moje poruke
+                </p>
+                {% for message in messages %}
+                    <a href="{{ route('messages.show', message) }}"
+                        class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
+                        <p>
+                            <span class="text-gray-400">Naslov:</span>
+                            {{ message.subject }}
+                        </p>
+                        <p>
+                            <span class="text-gray-400">Vreme:</span>
+                            {{ message.created_at|date('d.m.Y. H:i') }}
+                        </p>
+                        <p class="text-gray-400">
+                            {% if message.reply is not null %}
+                                1 odgovor
+                            {% else %}
+                                0 odgovora
+                            {% endif %}
+                        </p>
+                    </a>
+                {% else %}
+                    <p class="mt-4 text-gray-400">
+                        Nema poruka
+                    </p>
                 {% endfor %}
             </div>
         </div>

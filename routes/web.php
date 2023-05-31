@@ -39,6 +39,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
          * Home route
          */
         Route::get('/home', 'HomeController@index')->name('home');
+        /**
+         * Message routes
+         */
+        Route::get('/messages', 'MessageController@index')->name('messages.index');
+        Route::get('/messages/create', 'MessageController@create')->name('messages.create');
+        Route::post('/messages', 'MessageController@store')->name('messages.store');
+        Route::get('/messages/{message}', 'MessageController@show')->name('messages.show');
     });
 });
 
@@ -178,6 +185,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
             Route::get('/{user}', 'UserController@show')->name('show');
             Route::get('/{user}/ban', 'UserController@ban')->name('ban');
             Route::get('/{user}/unban', 'UserController@unban')->name('unban');
+        });
+        Route::group(['prefix' => 'messages', 'as' => 'messages.'], function () {
+            /**
+             * Message routes
+             */
+            Route::get('/', 'MessageController@index')->name('index');
+            Route::get('/{message}', 'MessageController@show')->name('show');
+            Route::post('/{message}/reply', 'MessageController@reply')->name('reply');
+            Route::get('/{message}/delete', 'MessageController@destroy')->name('destroy');
         });
     });
 });

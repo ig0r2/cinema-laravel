@@ -27,13 +27,17 @@ class UserController extends Controller
      */
     public function show(User $user): View
     {
-        $user->load('tickets.screening.movie', 'tickets.screening.hall', 'reviews.movie');
+        $user->load('tickets.screening.movie', 'tickets.screening.hall', 'reviews.movie', 'messages');
         $tickets = $user->tickets;
         $activeTickets = $tickets->where('screening.time', '>', now());
         $pastTickets = $tickets->where('screening.time', '<', now());
         $reviews = $user->reviews;
+        $messages = $user->messages;
 
-        return view('admin.users.show', compact('user', 'tickets', 'activeTickets', 'pastTickets', 'reviews'));
+        return view(
+            'admin.users.show',
+            compact('user', 'tickets', 'activeTickets', 'pastTickets', 'reviews', 'messages')
+        );
     }
 
     /**

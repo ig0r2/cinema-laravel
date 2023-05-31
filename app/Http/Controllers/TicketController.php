@@ -48,7 +48,7 @@ class TicketController extends Controller
         }
         $screening->save();
 
-        return redirect()->route('tickets.index');
+        return redirect()->route('home');
     }
 
     /**
