@@ -8,6 +8,7 @@ use App\Models\Genre;
 use App\Models\Actor;
 use App\Models\Director;
 use App\Models\Hall;
+use App\Models\Message;
 use App\Models\Movie;
 use App\Models\Review;
 use App\Models\Screening;
@@ -34,15 +35,24 @@ class DatabaseSeeder extends Seeder
         Director::truncate();
         Hall::truncate();
         User::truncate();
+        Message::truncate();
         DB::table('movie_actor')->truncate();
         DB::table('movie_director')->truncate();
         DB::table('movie_genre')->truncate();
         Schema::enableForeignKeyConstraints();
 
-        User::factory()->create([
-            'name' => 'Igor Jovanovic',
-            'email' => 'igor@formula1.rs',
-        ]);
+        User::factory()
+            ->admin()
+            ->create([
+                'name' => 'Admin',
+                'email' => 'admin@gmail.com',
+            ]);
+        User::factory()
+            ->manager()
+            ->create([
+                'name' => 'Manager',
+                'email' => 'manager@gmail.com',
+            ]);
         $users = User::factory(10)->create();
 
         Hall::create(['name' => 'Sala 1', 'capacity' => 50]);
