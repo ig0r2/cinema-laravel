@@ -19,7 +19,7 @@ class ScreeningController extends Controller
      */
     public function index(): View
     {
-        $screenings = Screening::with('movie', 'hall')->get();
+        $screenings = Screening::with('movie', 'hall')->orderBy('time', 'desc')->paginate(10);
 
         return view('admin.screenings.index', compact('screenings'));
     }

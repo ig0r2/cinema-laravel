@@ -16,7 +16,7 @@ class TicketController extends Controller
      */
     public function index(): View
     {
-        $tickets = Ticket::with('screening.movie', 'user')->get();
+        $tickets = Ticket::with('screening.movie', 'user')->paginate(10);
 
         return view('admin.tickets.index', compact('tickets'));
     }

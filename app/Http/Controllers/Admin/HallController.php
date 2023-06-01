@@ -15,7 +15,7 @@ class HallController extends Controller
      */
     public function index(): View
     {
-        $halls = Hall::all();
+        $halls = Hall::paginate(10);
 
         return view('admin.halls.index', compact('halls'));
     }
