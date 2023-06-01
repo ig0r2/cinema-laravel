@@ -17,7 +17,7 @@ class MessageController extends Controller
     {
         $messages = Message::where('user_id', Auth::id())
             ->with('user')
-            ->get();
+            ->paginate(10);
         return view('messages.index', compact('messages'));
     }
 
