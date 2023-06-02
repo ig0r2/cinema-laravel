@@ -161,6 +161,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
             Route::post('/', 'ScreeningController@store')->name('store');
             Route::get('/{screening}', 'ScreeningController@show')->name('show');
             Route::get('/{screening}/pdf', 'ScreeningController@pdf')->name('pdf');
+            Route::get('/{screening}/xlsx', 'ScreeningController@xlsx')->name('xlsx');
             Route::get('/{screening}/delete', 'ScreeningController@destroy')->name('destroy');
         });
         Route::group(['prefix' => 'tickets', 'as' => 'tickets.'], function () {
@@ -182,6 +183,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
              * User routes
              */
             Route::get('/', 'UserController@index')->name('index');
+            Route::get('/xlsx', 'UserController@xlsx')->name('xlsx');
             Route::get('/{user}', 'UserController@show')->name('show');
             Route::get('/{user}/ban', 'UserController@ban')->name('ban');
             Route::get('/{user}/unban', 'UserController@unban')->name('unban');

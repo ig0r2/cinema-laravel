@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\UserExport;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Excel;
 
 class UserController extends Controller
 {
@@ -20,6 +22,14 @@ class UserController extends Controller
             ->paginate(10);
 
         return view('admin.users.index', compact('users'));
+    }
+
+    /**
+     * Download the users as an Excel file.
+     */
+    public function xlsx()
+    {
+        return Excel::download(new UserExport(), 'users.xlsx');
     }
 
     /**

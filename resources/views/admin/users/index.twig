@@ -6,6 +6,12 @@
                 Korisnici
             </h1>
         </div>
+        <div class="flex mt-2">
+            <a href="{{ route('admin.users.xlsx') }}"
+                class="ms-auto px-2 p-1 rounded-md bg-green-500 hover:bg-green-700">
+                Preuzmi podatke (.xlsx)
+            </a>
+        </div>
         {% for user in users %}
             <div class="w-full flex items-center mt-2 p-2 gap-2 bg-slate-800 rounded-md">
                 <p>
