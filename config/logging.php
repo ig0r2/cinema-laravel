@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\Logs\UserLogger;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -125,6 +126,11 @@ return [
 
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
+        ],
+
+        'users' => [
+            'driver' => 'custom',
+            'via' => UserLogger::class,
         ],
     ],
 

@@ -197,5 +197,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
             Route::post('/{message}/reply', 'MessageController@reply')->name('reply');
             Route::get('/{message}/delete', 'MessageController@destroy')->name('destroy');
         });
+        Route::group(['prefix' => 'logs', 'as' => 'logs.'], function () {
+            /**
+             * Log routes
+             */
+            Route::get('/', 'LogsController@index')->name('index');
+        });
     });
 });

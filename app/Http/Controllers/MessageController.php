@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Log;
 
 class MessageController extends Controller
 {
@@ -44,6 +45,10 @@ class MessageController extends Controller
             'subject' => $request->input('subject'),
             'content' => $request->input('content'),
         ]);
+
+        Log::channel('users')->info(
+            'Korisnik ' . auth()->user()->name . ' je poslao novu poruku (naslov: ' . $request->input('subject') . ')'
+        );
 
         return redirect()->route('home');
     }

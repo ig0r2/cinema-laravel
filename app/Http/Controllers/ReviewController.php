@@ -7,6 +7,7 @@ use App\Models\Movie;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Log;
 
 class ReviewController extends Controller
 {
@@ -26,6 +27,10 @@ class ReviewController extends Controller
             'movie_id' => $movie->id,
             'user_id' => $request->user()->id,
         ]);
+
+        Log::channel('users')->info(
+            'Korisnik ' . auth()->user()->name . ' je ostavio recenziju za film ' . $movie->title . '.'
+        );
 
         return redirect()->route('movies.show', $movie);
     }

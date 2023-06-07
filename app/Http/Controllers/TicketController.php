@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use PDF;
+use Log;
 
 class TicketController extends Controller
 {
@@ -47,6 +48,18 @@ class TicketController extends Controller
             $screening->seats_available--;
         }
         $screening->save();
+
+        Log::channel('users')->info(
+            'Korisnik ' .
+                auth()->user()->name .
+                ' je kupio ' .
+                $request->number_of_tickets .
+                ' karte za projekciju ' .
+                $screening->id .
+                ' filma ' .
+                $screening->movie->title .
+                '.'
+        );
 
         return redirect()->route('home');
     }

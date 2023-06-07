@@ -43,10 +43,11 @@ class UserController extends Controller
         $pastTickets = $tickets->where('screening.time', '<', now());
         $reviews = $user->reviews;
         $messages = $user->messages;
+        $logs = $user->logs;
 
         return view(
             'admin.users.show',
-            compact('user', 'tickets', 'activeTickets', 'pastTickets', 'reviews', 'messages')
+            compact('user', 'tickets', 'activeTickets', 'pastTickets', 'reviews', 'messages', 'logs')
         );
     }
 
