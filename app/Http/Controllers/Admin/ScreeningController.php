@@ -19,9 +19,21 @@ class ScreeningController extends Controller
     /**
      * Show the screenings page.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $screenings = Screening::with('movie', 'hall')->orderBy('time', 'desc')->paginate(10);
+        $title = $request->input('title');
+        $date = $request->input('date');
+
+        $screenings = Screening::with('movie', 'hall')
+            ->when($title, function ($query, $title) {
+                $query->whereRelation('movie', 'title', 'like', "%{$title}%");
+            })
+            ->when($date, function ($query, $date) {
+                $query->where('time', 'like', "%{$date}%");
+            })
+            ->orderBy('time', 'desc')
+            ->paginate(10)
+            ->withQueryString();
 
         return view('admin.screenings.index', compact('screenings'));
     }

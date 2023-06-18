@@ -13,6 +13,7 @@ class Functions extends AbstractExtension
         return [
             new TwigFunction('view_blade', [$this, 'view_blade'], ['is_safe' => ['html']]),
             new TwigFunction('is_route', [$this, 'is_route']),
+            new TwigFunction('request', [$this, 'request']),
         ];
     }
 
@@ -24,5 +25,10 @@ class Functions extends AbstractExtension
     public static function is_route($route)
     {
         return request()->routeIs($route);
+    }
+
+    public static function request($input)
+    {
+        return request()->input($input);
     }
 }

@@ -5,12 +5,44 @@
             <h1 class="text-2xl font-bold text-center">
                 Karte
             </h1>
+            <div class="flex mt-2">
+                <form action="{{ route('admin.tickets.index') }}"
+                    method="GET"
+                    class="flex items-center gap-2">
+                    <label for="title" class="text-gray-400">Naslov</label>
+                    <input type="text"
+                        name="title"
+                        id="title"
+                        class="p-1 rounded-md bg-slate-800"
+                        value="{{ request('title') }}" />
+                    <label for="date" class="text-gray-400">Datum</label>
+                    <input type="date"
+                        name="date"
+                        id="date"
+                        class="p-1 rounded-md bg-slate-800"
+                        value="{{ request('date') }}" />
+                    <label for="user" class="text-gray-400">Korisnik</label>
+                    <input type="text"
+                        name="user"
+                        id="user"
+                        class="p-1 rounded-md bg-slate-800"
+                        value="{{ request('user') }}" />
+                    <button type="submit"
+                        class="ml-2 px-2 p-1 rounded-md bg-blue-500 hover:bg-blue-700">
+                        Pretraži
+                    </button>
+                    <a href="{{ route('admin.tickets.index') }}"
+                        class="ml-2 px-2 p-1 rounded-md bg-red-500 hover:bg-red-800">
+                        Resetuj
+                    </a>
+                </form>
+            </div>
         </div>
         {% for ticket in tickets %}
             <div class="w-full flex items-center mt-2 p-2 gap-2 bg-slate-800 rounded-md">
-                <p>
+                <p class="{{ ticket.screening.time|date('Y-m-d') < 'now'|date('Y-m-d') ? 'text-gray-400' : '' }}">
                     {{ ticket.screening.movie.title }} - {{
-                        ticket.screening.date|date('d.m.Y H:i')
+                        ticket.screening.time|date('d.m.Y H:i')
                     }} - {{ ticket.user.name }}
                 </p>
                 <a href="{{ route('tickets.show', ticket.id) }}"
@@ -22,6 +54,10 @@
                     Obriši
                 </a>
             </div>
+        {% else %}
+            <p class="text-center text-gray-400">
+                Nema karata
+            </p>
         {% endfor %}
         <div class="p-4">
             {{ tickets.links|raw }}

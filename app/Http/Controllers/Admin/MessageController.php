@@ -16,7 +16,11 @@ class MessageController extends Controller
      */
     public function index(): View
     {
-        $messages = Message::with('user')->paginate(10);
+        $messages = Message::with('user')
+            ->orderBy('reply', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
         return view('admin.messages.index', compact('messages'));
     }
 

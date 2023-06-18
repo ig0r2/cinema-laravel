@@ -6,6 +6,30 @@
                 Projekcije
             </h1>
             <div class="flex mt-2">
+                <form action="{{ route('admin.screenings.index') }}"
+                    method="GET"
+                    class="flex items-center gap-2">
+                    <label for="title" class="text-gray-400">Film</label>
+                    <input type="text"
+                        name="title"
+                        id="title"
+                        class="p-1 rounded-md bg-slate-800"
+                        value="{{ request('title') }}" />
+                    <label for="date" class="text-gray-400">Datum</label>
+                    <input type="date"
+                        name="date"
+                        id="date"
+                        class="p-1 rounded-md bg-slate-800"
+                        value="{{ request('date') }}" />
+                    <button type="submit"
+                        class="ml-2 px-2 p-1 rounded-md bg-blue-500 hover:bg-blue-700">
+                        Pretraži
+                    </button>
+                    <a href="{{ route('admin.screenings.index') }}"
+                        class="ml-2 px-2 p-1 rounded-md bg-red-500 hover:bg-red-800">
+                        Resetuj
+                    </a>
+                </form>
                 <a href="{{ route('admin.screenings.create') }}"
                     class="ms-auto px-2 p-1 rounded-md bg-blue-500 hover:bg-blue-700">
                     Dodaj projekciju
@@ -14,7 +38,7 @@
         </div>
         {% for screening in screenings %}
             <div class="w-full flex items-center mt-2 p-2 gap-2 bg-slate-800 rounded-md">
-                <p>
+                <p class="{{ screening.time|date('Y-m-d') < 'now'|date('Y-m-d') ? 'text-gray-400' : '' }}">
                     {{ screening.movie.title }} - {{
                         screening.time|date('d.m.')
                     }} u {{ screening.time|date('H:i') }} - {{
@@ -30,6 +54,10 @@
                     Obriši
                 </a>
             </div>
+        {% else %}
+            <p class="text-center text-gray-400">
+                Nema projekcija
+            </p>
         {% endfor %}
         <div class="p-4">
             {{ screenings.links|raw }}

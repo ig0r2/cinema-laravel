@@ -22,13 +22,15 @@
                         {{ message.created_at|date('d.m.Y H:i') }}
                     </div>
                 </div>
-                <p class="ms-auto text-gray-400">
-                    {% if message.reply is not null %}
+                {% if message.reply is not null %}
+                    <p class="ms-auto text-gray-400">
                         1 odgovor
-                    {% else %}
+                    </p>
+                {% else %}
+                    <p class="ms-auto text-red-500">
                         0 odgovora
-                    {% endif %}
-                </p>
+                    </p>
+                {% endif %}
                 <a href="{{ route('admin.messages.show', message) }}"
                     class="px-2 p-1 rounded-md bg-green-500 hover:bg-green-700">
                     Pogledaj
