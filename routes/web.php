@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('homepage');
-});
+})->name('homepage');
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::group(['middleware' => ['guest']], function () {

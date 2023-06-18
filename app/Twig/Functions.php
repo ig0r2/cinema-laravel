@@ -10,11 +10,19 @@ class Functions extends AbstractExtension
 {
     public function getFunctions()
     {
-        return [new TwigFunction('view_blade', [$this, 'view_blade'], ['is_safe' => ['html']])];
+        return [
+            new TwigFunction('view_blade', [$this, 'view_blade'], ['is_safe' => ['html']]),
+            new TwigFunction('is_route', [$this, 'is_route']),
+        ];
     }
 
     public static function view_blade($path, $data = [])
     {
         return View::make($path, $data)->render();
+    }
+
+    public static function is_route($route)
+    {
+        return request()->routeIs($route);
     }
 }

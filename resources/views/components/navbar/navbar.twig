@@ -1,12 +1,23 @@
 <nav class="p-4 flex gap-4 bg-slate-800">
-    <a href="/">Home</a>
-    <a href="{{ route('movies.index') }}">Filmovi</a>
+    <a href="/" class="{{ is_route('homepage') ? 'active' : '' }}">Početna</a>
+    <a href="{{ route('movies.index') }}"
+        class="{{ is_route('movies.*') ? 'active' : '' }}">
+        Filmovi
+    </a>
 
     {% if auth_check() %}
-        <a href="{{ route('messages.index') }}">Kontakt</a>
-        <a href="/home" class="ms-auto">Profil</a>
+        <a href="{{ route('messages.index') }}"
+            class="{{ is_route('messages.*') ? 'active' : '' }}">
+            Poruke
+        </a>
+        <a href="/home" class="ms-auto {{ is_route('home') ? 'active' : '' }}">
+            Profil
+        </a>
         <a href="/logout">Logout</a>
     {% else %}
-        <a href="/login" class="ms-auto">Login</a>
+        <a href="/login"
+            class="ms-auto {{ is_route('login') ? 'active' : '' }}">
+            Login
+        </a>
     {% endif %}
 </nav>

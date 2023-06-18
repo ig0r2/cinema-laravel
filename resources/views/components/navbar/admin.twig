@@ -1,14 +1,44 @@
 <nav class="p-4 flex gap-4 bg-slate-800">
     {% if auth_user().isAdmin() %}
-        <a href="{{ route('admin.movies.index') }}">Filmovi</a>
-        <a href="{{ route('admin.genres.index') }}">Žanrovi</a>
-        <a href="{{ route('admin.actors.index') }}">Glumci</a>
-        <a href="{{ route('admin.directors.index') }}">Režiseri</a>
-        <a href="{{ route('admin.halls.index') }}">Sale</a>
+        <a href="{{ route('admin.movies.index') }}"
+            class="{{ is_route('admin.movies.*') ? 'active' : '' }}">
+            Filmovi
+        </a>
+        <a href="{{ route('admin.genres.index') }}"
+            class="{{ is_route('admin.genres.*') ? 'active' : '' }}">
+            Žanrovi
+        </a>
+        <a href="{{ route('admin.directors.index') }}"
+            class="{{ is_route('admin.directors.*') ? 'active' : '' }}">
+            Režiseri
+        </a>
+        <a href="{{ route('admin.actors.index') }}"
+            class="{{ is_route('admin.actors.*') ? 'active' : '' }}">
+            Glumci
+        </a>
+        <a href="{{ route('admin.halls.index') }}"
+            class="{{ is_route('admin.halls.*') ? 'active' : '' }}">
+            Sale
+        </a>
     {% endif %}
-    <a href="{{ route('admin.screenings.index') }}">Projekcije</a>
-    <a href="{{ route('admin.tickets.index') }}">Karte</a>
-    <a href="{{ route('admin.users.index') }}">Korisnici</a>
-    <a href="{{ route('admin.messages.index') }}">Poruke</a>
-    <a href="{{ route('admin.logs.index') }}">Logovi</a>
+    <a href="{{ route('admin.screenings.index') }}"
+        class="{{ is_route('admin.screenings.*') ? 'active' : '' }}">
+        Projekcije
+    </a>
+    <a href="{{ route('admin.tickets.index') }}"
+        class="{{ is_route('admin.tickets.*') ? 'active' : '' }}">
+        Karte
+    </a>
+    <a href="{{ route('admin.users.index') }}"
+        class="{{ is_route('admin.users.*') ? 'active' : '' }}">
+        Korisnici
+    </a>
+    <a href="{{ route('admin.messages.index') }}"
+        class="{{ is_route('admin.messages.*') ? 'active' : '' }}">
+        Poruke
+    </a>
+    <a href="{{ route('admin.logs.index') }}"
+        class="{{ is_route('admin.logs.*') ? 'active' : '' }}">
+        Logovi
+    </a>
 </nav>
