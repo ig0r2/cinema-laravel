@@ -18,7 +18,11 @@
                 {# Image #}
                 <div class="h-full">
                     <label for="image" class="cursor-pointer">
-                        <img src="https://placehold.co/200x300/gray/gray/?text=Dodaj sliku za film"
+                        <img src="{{
+                            asset(
+                                '/images/placehold-200x300-gray.svg'
+                            )
+                            }}"
                             alt="Movie image"
                             class="w-full h-full object-cover rounded-md mt-4" />
                     </label>
@@ -89,7 +93,9 @@
                     </div>
                     {# Genres #}
                     <div class="mt-4">
-                        <p>Žanrovi</p>
+                        <p>
+                            Žanrovi
+                        </p>
                         <div class="p-2 max-h-40 overflow-auto bg-gray-900 rounded-md w-full border border-gray-500">
                             {% for genre in genres %}
                                 <div class="flex">
@@ -118,7 +124,9 @@
                     </div>
                     {# Actors #}
                     <div class="mt-4">
-                        <p>Glumci</p>
+                        <p>
+                            Glumci
+                        </p>
                         <div class="p-2 max-h-40 overflow-auto bg-gray-900 rounded-md w-full border border-gray-500">
                             {% for actor in actors %}
                                 <div class="flex">
@@ -147,7 +155,9 @@
                     </div>
                     {# Directors #}
                     <div class="mt-4">
-                        <p>Režiseri</p>
+                        <p>
+                            Režiseri
+                        </p>
                         <div class="p-2 max-h-40 overflow-auto bg-gray-900 rounded-md w-full border border-gray-500">
                             {% for director in directors %}
                                 <div class="flex">
