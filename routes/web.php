@@ -62,6 +62,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             /**
              * Ticket routes
              */
+            Route::get('/', 'TicketController@index')->name('index');
+            Route::get('/past', 'TicketController@past')->name('past');
             Route::get('/create/{screening}', 'TicketController@create')->name('create');
             Route::post('/{screening}', 'TicketController@store')->name('store');
             Route::get('/{ticket}', 'TicketController@show')->name('show');
@@ -71,6 +73,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             /**
              * Review routes
              */
+            Route::get('/', 'ReviewController@index')->name('index');
             Route::post('/{movie}', 'ReviewController@store')->name('store');
         });
     });

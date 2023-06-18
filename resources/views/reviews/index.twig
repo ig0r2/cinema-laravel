@@ -1,0 +1,41 @@
+{% extends '@components/layout.twig' %}
+{% set title = 'Karte | Bioskop' %}
+{% block content %}
+    <div class="max-w-4xl mx-auto p-4 flex flex-col items-center">
+        <div class="my-2">
+            <h1 class="text-2xl font-bold text-center">
+                Moje recenzije
+            </h1>
+        </div>
+        {% for review in reviews %}
+            <a href="{{ route('movies.show', review.movie) }}"
+                class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
+                <p>
+                    <span class="text-gray-400">Film:</span>
+                    {{ review.movie.title }} ({{
+                        review.movie.release_date.year
+                    }})
+                </p>
+                <p>
+                    <span class="text-gray-400">Ocena:</span>
+                    {{ review.rating }}
+                </p>
+                <p>
+                    <span class="text-gray-400">Komentar:</span>
+                    {{ review.content }}
+                </p>
+                <p>
+                    <span class="text-gray-400">Vreme:</span>
+                    {{ review.created_at|date('d.m.Y. H:i') }}
+                </p>
+            </a>
+        {% else %}
+            <p class="mt-4 text-gray-400">
+                Nema recenzija
+            </p>
+        {% endfor %}
+        <div class="p-4">
+            {{ reviews.links|raw }}
+        </div>
+    </div>
+{% endblock %}

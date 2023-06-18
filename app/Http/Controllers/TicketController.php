@@ -14,6 +14,38 @@ use Log;
 class TicketController extends Controller
 {
     /**
+     * Show all tickets from the user.
+     */
+    public function index(): View
+    {
+        $tickets = Ticket::where('user_id', auth()->user()->id)
+            ->with('screening.movie', 'screening.hall')
+            ->whereHas('screening', function ($query) {
+                $query->where('time', '>', now());
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('tickets.index', compact('tickets'));
+    }
+
+    /**
+     * Show all past tickets from the user.
+     */
+    public function past(): View
+    {
+        $tickets = Ticket::where('user_id', auth()->user()->id)
+            ->with('screening.movie', 'screening.hall')
+            ->whereHas('screening', function ($query) {
+                $query->where('time', '<', now());
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('tickets.past', compact('tickets'));
+    }
+
+    /**
      * Show the form for creating a new ticket for a screening.
      */
     public function create(Screening $screening): View

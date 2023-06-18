@@ -1,0 +1,54 @@
+{% extends '@components/layout.twig' %}
+{% set title = 'Karte | Bioskop' %}
+{% block content %}
+    <div class="max-w-4xl mx-auto p-4 flex flex-col items-center">
+        <div class="my-2">
+            <h1 class="text-2xl font-bold text-center">
+                Moje karte
+            </h1>
+        </div>
+        <a href="{{ route('tickets.past') }}"
+            class="bg-slate-700 text-white text-center rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white mt-4 transition-colors duration-300">
+            Prikaži prošle karte
+        </a>
+        {% for ticket in tickets %}
+            <a href="{{ route('tickets.show', ticket) }}"
+                class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
+                <p>
+                    <span class="text-gray-400">Film:</span>
+                    {{ ticket.screening.movie.title }} ({{
+                        ticket.screening.movie.release_date.year
+                    }})
+                </p>
+                <p>
+                    <span class="text-gray-400">Vreme:</span>
+                    {{ ticket.screening.time|date('d.m.') }} u {{
+                        ticket.screening.time|date('H:i')
+                    }} - {{ ticket.screening.hall.name }} ({{
+                        ticket.screening.type
+                    }})
+                </p>
+                <p>
+                    <span class="text-gray-400">Sediste:</span>
+                    {{ ticket.seat }}
+                </p>
+                <p>
+                    <span class="text-gray-400">Cena:</span>
+                    {{ ticket.screening.price }} RSD
+                </p>
+                <p>
+                    <span class="text-gray-400">Vreme kupovine:</span>
+                    {{ ticket.created_at|date('d.m.Y.') }}
+                    {{ ticket.created_at|date('H:i') }}
+                </p>
+            </a>
+        {% else %}
+            <p class="mt-4 text-gray-400">
+                Nema karata
+            </p>
+        {% endfor %}
+        <div class="p-4">
+            {{ tickets.links|raw }}
+        </div>
+    </div>
+{% endblock %}

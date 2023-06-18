@@ -6,9 +6,17 @@
     </a>
 
     {% if auth_check() %}
+        <a href="{{ route('tickets.index') }}"
+            class="{{ is_route('tickets.*') ? 'active' : '' }}">
+            Karte
+        </a>
         <a href="{{ route('messages.index') }}"
             class="{{ is_route('messages.*') ? 'active' : '' }}">
             Poruke
+        </a>
+        <a href="{{ route('reviews.index') }}"
+            class="{{ is_route('reviews.*') ? 'active' : '' }}">
+            Recenzije
         </a>
         <a href="/home" class="ms-auto {{ is_route('home') ? 'active' : '' }}">
             Profil
