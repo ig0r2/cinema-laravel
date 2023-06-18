@@ -1,159 +1,29 @@
 {% extends '@components/layout.twig' %}
+{% set title = 'Moj Bioskop' %}
 {% block content %}
-    <div class="container mx-auto px-4 py-8 mt-8 bg-slate-800 rounded-lg shadow-lg">
+    <div class="max-w-sm mx-auto px-4 py-8 mt-8 bg-slate-800 rounded-lg shadow-lg">
         <div class="w-full">
             <p class="text-center">
                 Zdravo, {{ user.name }}!
             </p>
         </div>
-        <div class="mt-8 flex flex-col md:flex-row gap-8 justify-center">
-            <div>
-                <p>
-                    Moje karte
-                </p>
-                {% for ticket in activeTickets %}
-                    <a href="{{ route('tickets.show', ticket) }}"
-                        class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
-                        <p>
-                            <span class="text-gray-400">Film:</span>
-                            {{ ticket.screening.movie.title }} ({{
-                                ticket.screening.movie.release_date.year
-                            }})
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Vreme:</span>
-                            {{ ticket.screening.time|date('d.m.') }} u {{
-                                ticket.screening.time|date('H:i')
-                            }} - {{ ticket.screening.hall.name }} ({{
-                                ticket.screening.type
-                            }})
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Sediste:</span>
-                            {{ ticket.seat }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Cena:</span>
-                            {{ ticket.screening.price }} RSD
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Vreme kupovine:</span>
-                            {{ ticket.created_at|date('d.m.Y.') }}
-                            {{ ticket.created_at|date('H:i') }}
-                        </p>
-                    </a>
-                {% else %}
-                    <p class="mt-4 text-gray-400">
-                        Nema karata
-                    </p>
-                {% endfor %}
-                <p class="mt-4">
-                    Istorija kupovine
-                </p>
-                {% for ticket in pastTickets %}
-                    <a href="{{ route('tickets.show', ticket) }}"
-                        class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-700 hover:bg-blue-700 transition-colors duration-300">
-                        <p>
-                            <span class="text-gray-400">Film:</span>
-                            {{ ticket.screening.movie.title }} ({{
-                                ticket.screening.movie.release_date.year
-                            }})
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Tip projekcije:</span>
-                            {{ ticket.screening.type }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Sala:</span>
-                            {{ ticket.screening.hall.name }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Datum:</span>
-                            {{ ticket.screening.time|date('d.m.Y.') }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Vreme:</span>
-                            {{ ticket.screening.time|date('H:i') }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Cena:</span>
-                            {{ ticket.screening.price }} RSD
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Sediste:</span>
-                            {{ ticket.seat }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Vreme kupovine:</span>
-                            {{ ticket.created_at|date('d.m.Y.') }}
-                            {{ ticket.created_at|date('H:i') }}
-                        </p>
-                    </a>
-                {% else %}
-                    <p class="mt-4 text-gray-400">
-                        Nema karata
-                    </p>
-                {% endfor %}
-            </div>
-            <div>
-                <p>
-                    Moje recenzije
-                </p>
-                {% for review in reviews %}
-                    <a href="{{ route('movies.show', review.movie) }}"
-                        class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
-                        <p>
-                            <span class="text-gray-400">Film:</span>
-                            {{ review.movie.title }} ({{
-                                review.movie.release_date.year
-                            }})
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Ocena:</span>
-                            {{ review.rating }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Komentar:</span>
-                            {{ review.content }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Vreme:</span>
-                            {{ review.created_at|date('d.m.Y. H:i') }}
-                        </p>
-                    </a>
-                {% else %}
-                    <p class="mt-4 text-gray-400">
-                        Nema recenzija
-                    </p>
-                {% endfor %}
-                <p class="mt-4">
-                    Moje poruke
-                </p>
-                {% for message in messages %}
-                    <a href="{{ route('messages.show', message) }}"
-                        class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
-                        <p>
-                            <span class="text-gray-400">Naslov:</span>
-                            {{ message.subject }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Vreme:</span>
-                            {{ message.created_at|date('d.m.Y. H:i') }}
-                        </p>
-                        <p class="text-gray-400">
-                            {% if message.reply is not null %}
-                                1 odgovor
-                            {% else %}
-                                0 odgovora
-                            {% endif %}
-                        </p>
-                    </a>
-                {% else %}
-                    <p class="mt-4 text-gray-400">
-                        Nema poruka
-                    </p>
-                {% endfor %}
-            </div>
+        <div class="mt-8 flex flex-col gap-4 justify-center">
+            <a href="{{ route('tickets.index') }}"
+                class="bg-slate-700 text-white text-center rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white transition-colors duration-300">
+                Moje karte
+            </a>
+            <a href="{{ route('tickets.past') }}"
+                class="bg-slate-700 text-white text-center rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white transition-colors duration-300">
+                Istorija karata
+            </a>
+            <a href="{{ route('messages.index') }}"
+                class="bg-slate-700 text-white text-center rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white transition-colors duration-300">
+                Moje poruke
+            </a>
+            <a href="{{ route('reviews.index') }}"
+                class="bg-slate-700 text-white text-center rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white transition-colors duration-300">
+                Moje recenzije
+            </a>
         </div>
     </div>
 {% endblock %}
