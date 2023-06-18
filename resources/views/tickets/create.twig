@@ -1,4 +1,5 @@
 {% extends '@components/layout.twig' %}
+{% set title = 'Rezervacija | Bioskop' %}
 {% block content %}
     <div class="w-full sm:max-w-md mx-auto p-4 rounded-md bg-slate-800">
         <form action="{{ route('tickets.store', screening.id) }}" method="POST">
@@ -21,43 +22,55 @@
                         screening.time|date('H:i')
                     }} - {{ screening.hall.name }} ({{ screening.type }})
                 </p>
-                <p class="text-gray-400">
-                    {{ screening.seats_available }}
-                    slobodnih mesta
-                </p>
-            </div>
-            {# Number of tickets #}
-            <div class="flex flex-col mt-4">
-                <label for="number_of_tickets" class="text-gray-400">
-                    Broj karata
-                </label>
-                <input type="number"
-                    name="number_of_tickets"
-                    id="number_of_tickets"
-                    class="rounded-md px-4 py-2 bg-slate-700 text-white"
-                    value="{{ old('number_of_tickets') }}"
-                    min="1"
-                    max="{{ screening.seats_available }}"
-                    required />
-                {% if errors.has('number_of_tickets') %}
-                    <p class="text-red-500 text-sm">
-                        {{ errors.first('number_of_tickets') }}
+                {% if screening.seats_available == 0 %}
+                    <p class="text-red-500">
+                        Nema slobodnih mesta
+                    </p>
+                {% else %}
+                    <p class="text-gray-400">
+                        {{ screening.seats_available }}
+                        slobodnih mesta
                     </p>
                 {% endif %}
             </div>
-            {# Calculate price #}
-            <div class="mt-4">
-                <p>
-                    <span class="text-gray-400">Ukupna cena:</span>
-                    {{ screening.price }} RSD
-                </p>
-            </div>
-            {# Submit #}
-            <div class="flex mt-4">
-                <input type="submit"
-                    value="Kupi"
-                    class="ms-auto bg-white text-black rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer" />
-            </div>
+            {% if screening.seats_available > 0 %}
+                {# Number of tickets #}
+                <div class="flex flex-col mt-4">
+                    <label for="number_of_tickets" class="text-gray-400">
+                        Broj karata
+                    </label>
+                    <input type="number"
+                        name="number_of_tickets"
+                        id="number_of_tickets"
+                        class="rounded-md px-4 py-2 bg-slate-700 text-white"
+                        value="{{ old('number_of_tickets') }}"
+                        min="1"
+                        max="{{ screening.seats_available }}"
+                        required />
+                    {% if errors.has('number_of_tickets') %}
+                        <p class="text-red-500 text-sm">
+                            {{ errors.first('number_of_tickets') }}
+                        </p>
+                    {% endif %}
+                </div>
+                {# Calculate price #}
+                <div class="mt-4">
+                    <input type="hidden"
+                        name="price"
+                        id="price"
+                        value="{{ screening.price }}" />
+                    <p>
+                        <span class="text-gray-400">Ukupna cena:</span>
+                        <span id="price-total">0</span> RSD
+                    </p>
+                </div>
+                {# Submit #}
+                <div class="flex mt-4">
+                    <input type="submit"
+                        value="Kupi"
+                        class="ms-auto bg-white text-black rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white cursor-pointer" />
+                </div>
+            {% endif %}
         </form>
     </div>
 {% endblock %}
