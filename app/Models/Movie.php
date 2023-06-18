@@ -59,12 +59,13 @@ class Movie extends Model
     }
 
     /**
-     * Get screenings grouped by date.
+     * Get the screenings for the movie that are in the future.
      */
-    public function screeningsByDate()
+    public function getFutureScreeningsByDateAttribute()
     {
         return $this->screenings()
             ->with('hall')
+            ->where('time', '>', now())
             ->get()
             ->sortBy('time')
             ->groupBy(function ($item) {
@@ -94,6 +95,8 @@ class Movie extends Model
      */
     public function hasReviewByUser(User $user)
     {
-        return $this->reviews()->where('user_id', $user->id)->exists();
+        return $this->reviews()
+            ->where('user_id', $user->id)
+            ->exists();
     }
 }
