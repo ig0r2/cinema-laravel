@@ -37,6 +37,10 @@
         class="{{ is_route('admin.messages.*') ? 'active' : '' }}">
         Poruke
     </a>
+    <a href="{{ route('admin.reviews.index') }}"
+        class="{{ is_route('admin.reviews.*') ? 'active' : '' }}">
+        Recenzije
+    </a>
     <a href="{{ route('admin.logs.index') }}"
         class="{{ is_route('admin.logs.*') ? 'active' : '' }}">
         Logovi

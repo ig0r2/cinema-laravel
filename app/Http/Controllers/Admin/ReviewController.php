@@ -12,6 +12,18 @@ use Illuminate\View\View;
 class ReviewController extends Controller
 {
     /**
+     * Show all reviews
+     */
+    public function index(): View
+    {
+        $reviews = Review::with('movie', 'user')
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+
+        return view('admin.reviews.index', compact('reviews'));
+    }
+
+    /**
      * Delete the given review.
      */
     public function destroy(Movie $movie, Review $review): RedirectResponse
