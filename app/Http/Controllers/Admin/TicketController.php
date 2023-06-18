@@ -20,20 +20,20 @@ class TicketController extends Controller
         $user = $request->input('user');
         $date = $request->input('date');
 
-        $tickets = Ticket::with([
-            'screening' => function ($query) {
-                $query->with('movie')->orderBy('time', 'desc');
-            },
-        ])
+        $tickets = Ticket::join('screenings', 'tickets.screening_id', '=', 'screenings.id')
+            ->join('movies', 'screenings.movie_id', '=', 'movies.id')
+            ->join('users', 'tickets.user_id', '=', 'users.id')
             ->when($title, function ($query, $title) {
-                $query->whereRelation('screening.movie', 'title', 'like', "%{$title}%");
-            })
-            ->when($date, function ($query, $date) {
-                $query->whereRelation('screening', 'time', 'like', "%{$date}%");
+                return $query->where('movies.title', 'like', '%' . $title . '%');
             })
             ->when($user, function ($query, $user) {
-                $query->whereRelation('user', 'name', 'like', "%{$user}%");
+                return $query->where('users.name', 'like', '%' . $user . '%');
             })
+            ->when($date, function ($query, $date) {
+                return $query->where('screenings.time', 'like', '%' . $date . '%');
+            })
+            ->select('tickets.*')
+            ->orderBy('screenings.time', 'desc')
             ->paginate(10)
             ->withQueryString();
 
