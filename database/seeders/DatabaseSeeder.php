@@ -136,6 +136,104 @@ class DatabaseSeeder extends Seeder
             ]);
         $movie->directors()->attach([Director::firstOrCreate(['name' => 'George Lucas'])->id]);
 
+        $movie = Movie::create([
+            'title' => 'Spider-Man: Across the Spider-Verse',
+            'image_url' => 'movies/2ddhwc3xueSWBZsxvmqMTVpgRg3UbSRms6rO55EN.jpg',
+            'runtime' => 136,
+            'release_date' => '2023-06-02',
+            'description' =>
+                'Miles Morales catapults across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence. When the heroes clash on how to handle a new threat, Miles must redefine what it means to be a hero.',
+        ]);
+        $movie
+            ->genres()
+            ->attach([
+                Genre::firstOrCreate(['name' => 'Action'])->id,
+                Genre::firstOrCreate(['name' => 'Adventure'])->id,
+                Genre::firstOrCreate(['name' => 'Animation'])->id,
+            ]);
+        $movie
+            ->actors()
+            ->attach([
+                Actor::firstOrCreate(['name' => 'Shameik Moore'])->id,
+                Actor::firstOrCreate(['name' => 'Hailee Steinfeld'])->id,
+                Actor::firstOrCreate(['name' => 'Oscar Isaac'])->id,
+            ]);
+        $movie
+            ->directors()
+            ->attach([
+                Director::firstOrCreate(['name' => 'Joaquim Dos Santos'])->id,
+                Director::firstOrCreate(['name' => 'Justin K. Thompson'])->id,
+                Director::firstOrCreate(['name' => 'Kemp Powers'])->id,
+            ]);
+
+        $movie = Movie::create([
+            'title' => 'Indiana Jones and the Dial of Destiny',
+            'image_url' => 'movies/9mtnZmav6HWkY936B80uNRhKfPbxb7NgFiaRMWhP.jpg',
+            'runtime' => 142,
+            'release_date' => '2023-06-30',
+            'description' =>
+                'Daredevil archaeologist Indiana Jones races against time to retrieve a legendary dial that can change the course of history. Accompanied by his goddaughter, he soon finds himself squaring off against Jürgen Voller, a former Nazi who works for NASA.',
+        ]);
+        $movie
+            ->genres()
+            ->attach([
+                Genre::firstOrCreate(['name' => 'Action'])->id,
+                Genre::firstOrCreate(['name' => 'Adventure'])->id,
+            ]);
+        $movie
+            ->actors()
+            ->attach([
+                Actor::firstOrCreate(['name' => 'Harrison Ford'])->id,
+                Actor::firstOrCreate(['name' => 'Karen Allen'])->id,
+                Actor::firstOrCreate(['name' => 'Phoebe Waller-Bridge'])->id,
+            ]);
+        $movie->directors()->attach([Director::firstOrCreate(['name' => 'James Mangold'])->id]);
+
+        $movie = Movie::create([
+            'title' => 'Barbie',
+            'image_url' => 'movies/vSXFnJujgYsEhKoSvlWnIBFYGalxwtfNMUTCcRfl.jpg',
+            'runtime' => 114,
+            'release_date' => '2023-07-21',
+            'description' =>
+                'Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans.',
+        ]);
+        $movie
+            ->genres()
+            ->attach([Genre::firstOrCreate(['name' => 'Comedy'])->id, Genre::firstOrCreate(['name' => 'Fantasy'])->id]);
+        $movie
+            ->actors()
+            ->attach([
+                Actor::firstOrCreate(['name' => 'Margot Robbie'])->id,
+                Actor::firstOrCreate(['name' => 'Ryan Gosling'])->id,
+                Actor::firstOrCreate(['name' => 'John Cena'])->id,
+            ]);
+        $movie->directors()->attach([Director::firstOrCreate(['name' => 'Greta Gerwig'])->id]);
+
+        $movie = Movie::create([
+            'title' => 'Guardians of the Galaxy Vol. 3',
+            'image_url' => 'movies/xCM87PH98NkfFzFW7BguuGOasd3D8QDdIDinazuJ.jpg',
+            'runtime' => 149,
+            'release_date' => '2023-05-05',
+            'description' =>
+                'Still reeling from the loss of Gamora, Peter Quill must rally his team to defend the universe and protect one of their own. If the mission is not completely successful, it could possibly lead to the end of the Guardians as we know them.',
+        ]);
+        $movie
+            ->genres()
+            ->attach([
+                Genre::firstOrCreate(['name' => 'Action'])->id,
+                Genre::firstOrCreate(['name' => 'Adventure'])->id,
+            ]);
+        $movie
+            ->actors()
+            ->attach([
+                Actor::firstOrCreate(['name' => 'Chris Pratt'])->id,
+                Actor::firstOrCreate(['name' => 'Chukwudi Iwuji'])->id,
+                Actor::firstOrCreate(['name' => 'Bradley Cooper'])->id,
+                Actor::firstOrCreate(['name' => 'Dave Bautista'])->id,
+                Actor::firstOrCreate(['name' => 'Karen Gillan'])->id,
+            ]);
+        $movie->directors()->attach([Director::firstOrCreate(['name' => 'James Gunn'])->id]);
+
         $movies = Movie::all();
         $movies->each(function ($movie) use ($halls, $users) {
             for ($i = 0; $i < 30; $i++) {
