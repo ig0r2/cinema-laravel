@@ -51,7 +51,7 @@ class MessageController extends Controller
             'Korisnik ' . auth()->user()->name . ' je poslao novu poruku (naslov: ' . $request->input('subject') . ')'
         );
 
-        return redirect()->route('home');
+        return redirect()->route('messages.index');
     }
 
     /**

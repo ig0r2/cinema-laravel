@@ -14,9 +14,14 @@ class MessageController extends Controller
     /**
      * Show all messages
      */
-    public function index(): View
+    public function index(Request $request): View
     {
+        $user = $request->input('user');
+
         $messages = Message::with('user')
+            ->when($user, function ($query, $user) {
+                return $query->where('user_id', $user);
+            })
             ->orderBy('reply', 'asc')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
