@@ -38,7 +38,12 @@
         </div>
         {% for screening in screenings %}
             <div class="w-full flex items-center mt-2 p-2 gap-2 bg-slate-800 rounded-md">
-                <p class="{{ screening.time|date('Y-m-d') < 'now'|date('Y-m-d') ? 'text-gray-400' : '' }}">
+                <p class="{{
+                    (screening.time|date('Y-m-d H:i'))
+                        < (date|date('Y-m-d H:i'))
+                        ? 'text-gray-400'
+                        : ''
+                    }}">
                     {{ screening.movie.title }} - {{
                         screening.time|date('d.m.')
                     }} u {{ screening.time|date('H:i') }} - {{
