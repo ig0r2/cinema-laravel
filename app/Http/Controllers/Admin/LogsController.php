@@ -42,7 +42,7 @@ class LogsController extends Controller
     public static function get(User $user): Collection
     {
         $logs = self::getAll();
-        $logs->filter(function ($log) use ($user) {
+        $logs = $logs->filter(function ($log) use ($user) {
             return $log['user_id'] == $user->id;
         });
 
