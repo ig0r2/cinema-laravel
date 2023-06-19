@@ -1,197 +1,61 @@
 {% extends '@components/layout.twig' %}
 {% block content %}
-    <div class="container mx-auto px-4 py-8 mt-8 bg-slate-800 rounded-lg shadow-lg">
-        <div class="flex flex-col gap-2">
-            <p>
-                <span class="text-gray-400">Ime:</span>
-                {{ user.name }}
-            </p>
-            <p>
-                <span class="text-gray-400">Email:</span>
-                {{ user.email }}
-            </p>
-            <p>
-                <span class="text-gray-400">Datum pridruživanja:</span>
-                {{ user.created_at|date('d.m.Y.') }}
-            </p>
-        </div>
-        <div class="mt-8 flex flex-col md:flex-row gap-8 justify-center">
-            <div>
+    <div class="container mx-auto p-6 mt-8 bg-slate-800 rounded-lg shadow-lg">
+        <div class="flex justify-between items-center">
+            <div class="flex flex-col gap-2">
+                <h1 class="text-2xl font-bold">
+                    {{ user.name }}
+                </h1>
                 <p>
-                    Logovi
+                    <span class="text-gray-400">Email:</span>
+                    {{ user.email }}
                 </p>
-                {% for log in logs %}
-                    <div class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
-                        <p>
-                            {{ log.message }}
-                        </p>
-                        <p class="text-gray-400">
-                            {{ log.timestamp|date('d.m.Y. H:i') }}
-                        </p>
-                    </div>
-                {% else %}
-                    <p class="mt-4 text-gray-400">
-                        Nema logova
-                    </p>
-                {% endfor %}
-            </div>
-            <div>
                 <p>
+                    <span class="text-gray-400">Uloga:</span>
+                    {{ user.isAdmin() ? 'Administrator' : '' }}
+                    {{ user.isManager() ? 'Menadžer' : '' }}
+                    {{ user.isUser() ? 'Korisnik' : '' }}
+                </p>
+                <p>
+                    <span class="text-gray-400">Datum pridruživanja:</span>
+                    {{ user.created_at|date('d.m.Y.') }}
+                </p>
+            </div>
+            <div class="flex flex-col gap-4 justify-center">
+                <a href="{{ route('admin.tickets.index') }}?user={{
+                    user.name
+                    }}"
+                    class="bg-slate-700 text-white text-center rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white transition-colors duration-300">
                     Karte
-                </p>
-                {% for ticket in activeTickets %}
-                    <a href="{{ route('tickets.show', ticket) }}"
-                        class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
-                        <p>
-                            <span class="text-gray-400">Film:</span>
-                            {{ ticket.screening.movie.title }} ({{
-                                ticket.screening.movie.release_date.year
-                            }})
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Tip projekcije:</span>
-                            {{ ticket.screening.type }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Sala:</span>
-                            {{ ticket.screening.hall.name }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Datum:</span>
-                            {{ ticket.screening.time|date('d.m.Y.') }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Vreme:</span>
-                            {{ ticket.screening.time|date('H:i') }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Cena:</span>
-                            {{ ticket.screening.price }} RSD
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Sediste:</span>
-                            {{ ticket.seat }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Vreme kupovine:</span>
-                            {{ ticket.created_at|date('d.m.Y.') }}
-                            {{ ticket.created_at|date('H:i') }}
-                        </p>
-                    </a>
-                {% else %}
-                    <p class="mt-4 text-gray-400">
-                        Nema karata
-                    </p>
-                {% endfor %}
-                <p class="mt-4">
-                    Istorija kupovine
-                </p>
-                {% for ticket in pastTickets %}
-                    <a href="{{ route('tickets.show', ticket) }}"
-                        class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-700 hover:bg-blue-700 transition-colors duration-300">
-                        <p>
-                            <span class="text-gray-400">Film:</span>
-                            {{ ticket.screening.movie.title }} ({{
-                                ticket.screening.movie.release_date.year
-                            }})
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Tip projekcije:</span>
-                            {{ ticket.screening.type }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Sala:</span>
-                            {{ ticket.screening.hall.name }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Datum:</span>
-                            {{ ticket.screening.time|date('d.m.Y.') }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Vreme:</span>
-                            {{ ticket.screening.time|date('H:i') }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Cena:</span>
-                            {{ ticket.screening.price }} RSD
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Sediste:</span>
-                            {{ ticket.seat }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Vreme kupovine:</span>
-                            {{ ticket.created_at|date('d.m.Y.') }}
-                            {{ ticket.created_at|date('H:i') }}
-                        </p>
-                    </a>
-                {% else %}
-                    <p class="mt-4 text-gray-400">
-                        Nema karata
-                    </p>
-                {% endfor %}
-            </div>
-            <div>
-                <p>
-                    Recenzije
-                </p>
-                {% for review in reviews %}
-                    <a href="{{ route('reviews.store', review) }}"
-                        class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
-                        <p>
-                            <span class="text-gray-400">Film:</span>
-                            {{ review.movie.title }} ({{
-                                review.movie.release_date.year
-                            }})
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Ocena:</span>
-                            {{ review.rating }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Komentar:</span>
-                            {{ review.content }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Vreme:</span>
-                            {{ review.created_at|date('d.m.Y. H:i') }}
-                        </p>
-                    </a>
-                {% else %}
-                    <p class="mt-4 text-gray-400">
-                        Nema recenzija
-                    </p>
-                {% endfor %}
-                <p class="mt-4">
+                </a>
+                <a href="{{ route('messages.index') }}?user={{ user.id }}"
+                    class="bg-slate-700 text-white text-center rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white transition-colors duration-300">
                     Poruke
-                </p>
-                {% for message in messages %}
-                    <a href="{{ route('admin.messages.show', message) }}"
-                        class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
-                        <p>
-                            <span class="text-gray-400">Naslov:</span>
-                            {{ message.subject }}
-                        </p>
-                        <p>
-                            <span class="text-gray-400">Vreme:</span>
-                            {{ message.created_at|date('d.m.Y. H:i') }}
-                        </p>
-                        {% if message.reply is not null %}
-                            <p class="text-gray-400">
-                                1 odgovor
-                            </p>
-                        {% else %}
-                            <p class="text-red-400">
-                                0 odgovora
-                            </p>
-                        {% endif %}
-                    </a>
-                {% else %}
-                    <p class="mt-4 text-gray-400">
-                        Nema poruka
-                    </p>
-                {% endfor %}
+                </a>
+                <a href="{{ route('reviews.index') }}?user={{ user.id }}"
+                    class="bg-slate-700 text-white text-center rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white transition-colors duration-300">
+                    Recenzije
+                </a>
             </div>
+        </div>
+        <div>
+            <h2 class="text-xl font-bold mt-8 mb-4">
+                Logovi
+            </h2>
+            {% for log in logs %}
+                <div class="mt-2 container flex justify-between items-end gap-2 p-4 rounded-lg bg-gray-900">
+                    <p>
+                        {{ log.message }}
+                    </p>
+                    <p class="min-w-max text-gray-400">
+                        {{ log.timestamp|date('d.m.Y. H:i') }}
+                    </p>
+                </div>
+            {% else %}
+                <p class="mt-4 text-gray-400">
+                    Nema logova
+                </p>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
