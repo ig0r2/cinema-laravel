@@ -18,12 +18,12 @@ if (priceTotal) {
   let quantity = document.querySelector('#number_of_tickets');
 
   priceTotal.textContent = (
-    parseFloat(price.value) * parseInt(quantity.value)
+    parseFloat(price.value) * parseInt(quantity.value || 0)
   ).toFixed(0);
-  
+
   quantity.addEventListener('change', function () {
     priceTotal.textContent = (
-      parseFloat(price.value) * parseInt(quantity.value)
+      parseFloat(price.value) * parseInt(quantity.value || 0)
     ).toFixed(0);
   });
 }
