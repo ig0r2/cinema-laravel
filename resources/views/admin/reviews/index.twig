@@ -8,17 +8,22 @@
             </h1>
         </div>
         {% for review in reviews %}
-            <a href="{{ route('movies.show', review.movie) }}"
-                class="mt-4 max-w-md flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900 hover:bg-blue-700 transition-colors duration-300">
+            <div class="mt-4 container flex flex-col gap-2 p-4 rounded-lg border border-gray-300 bg-gray-900">
                 <p>
                     <span class="text-gray-400">Film:</span>
-                    {{ review.movie.title }} ({{
-                        review.movie.release_date.year
-                    }})
+                    <a href="{{ route('movies.show', review.movie) }}"
+                        class="text-blue-500 hover:underline">
+                        {{ review.movie.title }} ({{
+                            review.movie.release_date.year
+                        }})
+                    </a>
                 </p>
                 <p>
                     <span class="text-gray-400">Korisnik:</span>
-                    {{ review.user.name }}
+                    <a href="{{ route('admin.users.show', review.user) }}"
+                        class="text-blue-500 hover:underline">
+                        {{ review.user.name }}
+                    </a>
                 </p>
                 <p>
                     <span class="text-gray-400">Ocena:</span>
@@ -32,7 +37,11 @@
                     <span class="text-gray-400">Vreme:</span>
                     {{ review.created_at|date('d.m.Y. H:i') }}
                 </p>
-            </a>
+                <a href="{{ route('admin.reviews.destroy', review) }}"
+                    class="text-red-500 hover:underline">
+                    Obriši
+                </a>
+            </div>
         {% else %}
             <p class="mt-4 text-gray-400">
                 Nema recenzija

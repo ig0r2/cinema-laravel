@@ -164,6 +164,18 @@
                         <p class="text-justify">
                             {{ review.content }}
                         </p>
+                        {% if
+                            auth_user().isAdmin() or auth_user().isManager() %}
+                            <a href="{{
+                                route(
+                                    'admin.reviews.destroy',
+                                    review
+                                )
+                                }}"
+                                class="text-red-500 hover:underline">
+                                Obriši
+                            </a>
+                        {% endif %}
                     </div>
                 {% else %}
                     <p class="text-gray-400 text-center mt-4">
