@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
-    Route::get('/', 'HomeController@homepage')->name('homepage');
+    Route::get('/', 'HomeController@index')->name('homepage');
+    /**
+     * Auth routes
+     */
     Route::group(['middleware' => ['guest']], function () {
         /**
          * Register routes
@@ -27,15 +30,18 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/login', 'LoginController@index')->name('login');
         Route::post('/login', 'LoginController@store')->name('login.store');
     });
+    /**
+     * User routes
+     */
     Route::group(['middleware' => ['auth']], function () {
         /**
          * Logout route
          */
         Route::get('/logout', 'LoginController@destroy')->name('logout');
         /**
-         * Home route
+         * Profile route
          */
-        Route::get('/home', 'HomeController@index')->name('home');
+        Route::get('/profile', 'UserController@index')->name('profile');
         /**
          * Message routes
          */

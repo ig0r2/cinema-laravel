@@ -30,6 +30,6 @@ class RegisterController extends Controller
 
         auth()->login($user);
 
-        return redirect('/home')->with('success', 'Your account has been created!');
+        return redirect('/profile');
     }
 }

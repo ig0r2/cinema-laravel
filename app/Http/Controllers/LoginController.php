@@ -29,7 +29,7 @@ class LoginController extends Controller
             return back()->withErrors(['email' => 'Pogrešan email ili lozinka.']);
         }
 
-        return redirect()->intended('/home');
+        return redirect()->intended('/profile');
     }
 
     /**
