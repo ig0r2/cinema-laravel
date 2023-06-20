@@ -14,7 +14,9 @@
         <div id="app">
             <div>
                 {% include '@components/navbar/navbar.twig' %}
-                {% if auth_check() %}
+                {% if auth_check() and auth_user().isManager() %}
+                    {% include '@components/navbar/manager.twig' %}
+                {% elseif auth_check() and auth_user().isAdmin() %}
                     {% include '@components/navbar/admin.twig' %}
                 {% endif %}
             </div>
