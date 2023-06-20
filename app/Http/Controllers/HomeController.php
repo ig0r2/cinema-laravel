@@ -14,6 +14,11 @@ class HomeController extends Controller
      */
     public static function index(): View
     {
+        $topMovies = Movie::withAvg('reviews as rating', 'rating')
+            ->orderBy('rating', 'desc')
+            ->take(3)
+            ->get();
+
         $movies = Movie::with([
             'genres',
             'actors',
@@ -29,6 +34,6 @@ class HomeController extends Controller
             })
             ->get();
 
-        return view('homepage', compact('movies'));
+        return view('homepage', compact('movies', 'topMovies'));
     }
 }

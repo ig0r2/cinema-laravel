@@ -5,7 +5,33 @@
         Bioskop
     </h2>
     <div class="container mx-auto p-4 my-2 rounded-md relative bg-slate-800">
-        <h2 class="text-lg text-center p-4">
+        <h2 class="text-xl font-bold text-center p-4">
+            Top filmovi
+        </h2>
+        <div class="flex gap-4 flex-wrap justify-center">
+            {% for movie in topMovies %}
+                <a href="{{ route('movies.show', movie) }}"
+                    class="w-60 flex flex-col bg-slate-700 rounded-md overflow-hidden hover:bg-blue-900 hover:transform hover:scale-105 transition duration-200 ease-in-out">
+                    <div class="w-full h-80">
+                        <img src="{{ asset('/images/' ~ movie.image_url) }}"
+                            alt="{{ movie.title }}"
+                            class="w-full h-full object-cover" />
+                    </div>
+                    <div class="p-2 text-center">
+                        <p>
+                            {{ movie.title }} ({{ movie.release_date.year }})
+                        </p>
+                    </div>
+                    <div class="p-2 text-center">
+                        <p>
+                            <span class="text-gray-400">Ocena:</span>
+                            {{ movie.rating|round(2) }}
+                        </p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        <h2 class="text-xl font-bold text-center p-4 mt-8">
             Na repertoaru danas
         </h2>
         <div class="flex flex-col">
