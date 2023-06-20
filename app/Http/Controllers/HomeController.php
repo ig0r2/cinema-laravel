@@ -23,12 +23,12 @@ class HomeController extends Controller
             'genres',
             'actors',
             'directors',
-            'reviews',
             'screenings' => function ($query) {
                 $query->whereDate('time', Carbon::today())->orderBy('time', 'asc');
             },
             'screenings.hall',
         ])
+            ->withAvg('reviews as rating', 'rating')
             ->whereHas('screenings', function ($query) {
                 $query->whereDate('time', Carbon::today());
             })

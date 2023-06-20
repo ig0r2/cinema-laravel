@@ -42,7 +42,13 @@
                 <div class="mt-4">
                     <p>
                         <span class="text-gray-400">Ocena:</span>
-                        {{ movie.reviews.avg('rating')|round(2) }}
+                        {{
+                            movie.reviews.avg('rating')|number_format(
+                                2,
+                                ',',
+                                '.'
+                            )
+                        }}
                     </p>
                 </div>
                 {# Description #}

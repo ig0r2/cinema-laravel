@@ -20,12 +20,12 @@ class ScreeningController extends Controller
             'genres',
             'actors',
             'directors',
-            'reviews',
             'screenings' => function ($query) use ($dateSelected) {
                 $query->whereDate('time', $dateSelected)->orderBy('time', 'asc');
             },
             'screenings.hall',
         ])
+            ->withAvg('reviews as rating', 'rating')
             ->whereHas('screenings', function ($query) use ($dateSelected) {
                 $query->whereDate('time', $dateSelected);
             })
