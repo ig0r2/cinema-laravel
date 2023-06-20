@@ -16,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/', 'HomeController@index')->name('homepage');
     Route::get('/screenings', 'ScreeningController@index')->name('screenings');
+    Route::group(['prefix' => 'movies', 'as' => 'movies.'], function () {
+        /**
+         * Movie routes
+         */
+        Route::get('/', 'MovieController@index')->name('index');
+        Route::get('/{movie}', 'MovieController@show')->name('show');
+    });
     /**
      * Auth routes
      */
@@ -43,25 +50,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
          * Profile route
          */
         Route::get('/profile', 'UserController@index')->name('profile');
-        /**
-         * Message routes
-         */
-        Route::get('/messages', 'MessageController@index')->name('messages.index');
-        Route::get('/messages/create', 'MessageController@create')->name('messages.create');
-        Route::post('/messages', 'MessageController@store')->name('messages.store');
-        Route::get('/messages/{message}', 'MessageController@show')->name('messages.show');
-    });
-});
-
-Route::group(['namespace' => 'App\Http\Controllers'], function () {
-    Route::group(['prefix' => 'movies', 'as' => 'movies.'], function () {
-        /**
-         * Movie routes
-         */
-        Route::get('/', 'MovieController@index')->name('index');
-        Route::get('/{movie}', 'MovieController@show')->name('show');
-    });
-    Route::group(['middleware' => ['auth']], function () {
+        Route::group(['prefix' => 'messages', 'as' => 'messages.'], function () {
+            /**
+             * Message routes
+             */
+            Route::get('/', 'MessageController@index')->name('index');
+            Route::get('/create', 'MessageController@create')->name('create');
+            Route::post('/', 'MessageController@store')->name('store');
+            Route::get('/{message}', 'MessageController@show')->name('show');
+        });
         Route::group(['prefix' => 'tickets', 'as' => 'tickets.'], function () {
             /**
              * Ticket routes
