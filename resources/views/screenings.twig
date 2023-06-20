@@ -1,0 +1,161 @@
+{% extends '@components/layout.twig' %}
+{% set title = 'Bioskop' %}
+{% block content %}
+    <h2 class="text-2xl text-center p-4 flex-grow">
+        Repertoar
+    </h2>
+    <div class="container mx-auto p-4 my-2 rounded-md relative bg-slate-800">
+        <div class="flex flex-wrap gap-4 justify-center">
+            {% for date in dates %}
+                <a href="{{ route('screenings') }}?date={{ date|date(
+                        'Y-m-d'
+                    ) }}"
+                    class="rounded-md p-2 hover:bg-blue-800 {{
+                    date == dateSelected
+                        ? 'bg-blue-800'
+                        : 'bg-gray-900'
+                    }}">
+                    <p class="text-center">
+                        {{ date|date('d.m.') }}
+                    </p>
+                    <p class="text-center text-gray-400">
+                        {{ date|date('w')|day_name|upper|slice(0, 3) }}
+                    </p>
+                </a>
+            {% endfor %}
+        </div>
+        <div class="flex flex-col">
+            {% for movie in movies %}
+                <div class="flex flex-col justify-center m-2 p-4 rounded-md bg-slate-700">
+                    {# Slika #}
+                    <a href="{{ route('movies.show', movie.id) }}"
+                        class="text-xl">
+                        {{ movie.title }}
+                    </a>
+                    {# Info #}
+                    <div class="w-full flex justify-start items-center">
+                        <a href="{{ route('movies.show', movie.id) }}">
+                            <img src="{{ asset('/images/' ~ movie.image_url) }}"
+                                alt="Movie image"
+                                class="w-48 h-64 object-cover rounded-md mt-4" />
+                        </a>
+                        <div class="flex flex-col p-4">
+                            <p>
+                                <span class="text-gray-400">
+                                    Datum izlaska:
+                                </span>
+                                {{ movie.release_date|date('d.m.Y') }}
+                            </p>
+                            <p>
+                                <span class="text-gray-400">Trajanje:</span>
+                                {{ movie.runtime }} min
+                            </p>
+                            <p>
+                                <span class="text-gray-400">Ocena:</span>
+                                {{ movie.reviews.avg('rating')|round(2) }}
+                            </p>
+                            <div>
+                                <p class="text-gray-400">
+                                    Žanr
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    {% for genre in movie.genres %}
+                                        <span class="bg-gray-900 text-white rounded-md px-2 py-1">
+                                            {{ genre.name }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-gray-400">
+                                    Uloge
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    {% for actor in movie.actors %}
+                                        <span class="bg-gray-900 text-white rounded-md px-2 py-1">
+                                            {{ actor.name }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-gray-400">
+                                    Režiser
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    {% for director in movie.directors %}
+                                        <span class="bg-gray-900 text-white rounded-md px-2 py-1">
+                                            {{ director.name }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {# Projekcije #}
+                    <div class="flex flex-wrap gap-4 justify-center mt-4">
+                        <div class="w-full flex bg-slate-800 rounded-md p-4 gap-4 justify-start">
+                            <div class="flex flex-col justify-center w-24 flex-shrink-0">
+                                <p class="">
+                                    {{ date|date('d.m.') }}
+                                </p>
+                                <p class="text-gray-400">
+                                    {{
+                                        date
+                                            |date('w')
+                                            |day_name
+                                            |upper
+                                            |slice(0, 3)
+                                    }}
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap gap-6">
+                                {% for screening in movie.screenings %}
+                                    {# Zavrseno #}
+                                    {% if
+                                        (screening.time|date('Y-m-d H:i'))
+                                            < (date|date('Y-m-d H:i')) %}
+                                        <div class="bg-gray-700 rounded-md p-2 w-32">
+                                            <p class="text-center">
+                                                {{ screening.time|date('H:i') }}
+                                            </p>
+                                            <p class="text-center text-gray-400">
+                                                {{ screening.hall.name }} ({{
+                                                    screening.type
+                                                }})
+                                            </p>
+                                            <p class="text-center text-gray-400">
+                                                {{ screening.price }} RSD
+                                            </p>
+                                        </div>
+                                    {% else %}
+                                        {# Nezavrseno #}
+                                        <a href="{{
+                                            route(
+                                                'tickets.create',
+                                                screening.id
+                                            )
+                                            }}"
+                                            class="bg-gray-900 rounded-md p-2 hover:bg-blue-800 w-32">
+                                            <p class="text-center">
+                                                {{ screening.time|date('H:i') }}
+                                            </p>
+                                            <p class="text-center text-gray-400">
+                                                {{ screening.hall.name }} ({{
+                                                    screening.type
+                                                }})
+                                            </p>
+                                            <p class="text-center text-gray-400">
+                                                {{ screening.price }} RSD
+                                            </p>
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

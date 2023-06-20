@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/', 'HomeController@index')->name('homepage');
+    Route::get('/screenings', 'ScreeningController@index')->name('screenings');
     /**
      * Auth routes
      */
