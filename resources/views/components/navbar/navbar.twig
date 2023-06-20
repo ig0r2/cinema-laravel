@@ -11,7 +11,7 @@
 
     {% if auth_check() %}
         <a href="{{ route('tickets.index') }}"
-            class="{{ is_route('tickets.*') ? 'active' : '' }}">
+            class="ms-auto {{ is_route('tickets.*') ? 'active' : '' }}">
             Karte
         </a>
         <a href="{{ route('messages.index') }}"
@@ -22,7 +22,7 @@
             class="{{ is_route('reviews.*') ? 'active' : '' }}">
             Recenzije
         </a>
-        <a href="/profile" class="ms-auto {{ is_route('profile') ? 'active' : '' }}">
+        <a href="/profile" class="{{ is_route('profile') ? 'active' : '' }}">
             Profil
         </a>
     {% else %}
