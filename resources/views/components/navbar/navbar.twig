@@ -4,6 +4,10 @@
         class="{{ is_route('movies.*') ? 'active' : '' }}">
         Filmovi
     </a>
+    <a href="{{ route('screenings') }}"
+        class="{{ is_route('screenings') ? 'active' : '' }}">
+        Projekcije
+    </a>
 
     {% if auth_check() %}
         <a href="{{ route('tickets.index') }}"

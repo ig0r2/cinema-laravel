@@ -6,6 +6,9 @@
   #app {
     @apply flex min-h-screen flex-col justify-between bg-gray-900 text-white;
   }
+  #app main {
+    @apply flex-1;
+  }
   nav a {
     @apply text-white hover:text-lime-500;
   }
