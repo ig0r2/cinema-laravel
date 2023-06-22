@@ -16,7 +16,11 @@ class LogsController extends Controller
      */
     public static function getAll(): Collection
     {
-        $content = file_get_contents(storage_path(self::$logFile));
+        $content = @file_get_contents(storage_path(self::$logFile));
+        if (!$content) {
+            return Collection::make([]);
+        }
+
         $lines = explode("\n", $content);
         $logs = [];
         foreach ($lines as $line) {
