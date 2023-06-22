@@ -189,8 +189,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
             Route::get('/', 'UserController@index')->name('index');
             Route::get('/xlsx', 'UserController@xlsx')->name('xlsx');
             Route::get('/{user}', 'UserController@show')->name('show');
-            Route::get('/{user}/ban', 'UserController@ban')->name('ban');
-            Route::get('/{user}/unban', 'UserController@unban')->name('unban');
         });
         Route::group(['prefix' => 'messages', 'as' => 'messages.'], function () {
             /**
