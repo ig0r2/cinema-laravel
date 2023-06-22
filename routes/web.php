@@ -16,13 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/', 'HomeController@index')->name('homepage');
     Route::get('/screenings', 'ScreeningController@index')->name('screenings');
-    Route::group(['prefix' => 'movies', 'as' => 'movies.'], function () {
-        /**
-         * Movie routes
-         */
-        Route::get('/', 'MovieController@index')->name('index');
-        Route::get('/{movie}', 'MovieController@show')->name('show');
-    });
+    /**
+     * Movie routes
+     */
+    Route::get('movies/', 'MovieController@index')->name('movies.index');
+    Route::get('movies/{movie}', 'MovieController@show')->name('movies.show');
     /**
      * Auth routes
      */
